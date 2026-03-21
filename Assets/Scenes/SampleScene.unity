@@ -758,7 +758,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   energy: 0
-  decayRate: 0.7
+  decayRate: 0.55
+  energyHoldTime: 2
+  maxEnergyHoldTime: 3.5
+  energyHoldTimer: 0
+  timerTrigger: 0
+  maxEnergyHoldTrigger: 0
 --- !u!114 &1726346739
 MonoBehaviour:
   m_ObjectHideFlags: 0
