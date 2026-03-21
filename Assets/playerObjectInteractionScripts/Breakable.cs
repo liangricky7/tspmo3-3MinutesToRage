@@ -41,6 +41,7 @@ public class Breakable : MonoBehaviour
             Destroy(piece, pieceLifetime);
         }
 
+        EventsPlayerInteraction.Instance.TriggerBreakableKill();
         CleanupBreakPoints(breakPoints);
         gameObject.SetActive(false);
     }
