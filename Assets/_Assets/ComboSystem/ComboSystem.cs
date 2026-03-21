@@ -54,7 +54,7 @@ public class ComboSystem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             ActivateComboSystem();
         }
