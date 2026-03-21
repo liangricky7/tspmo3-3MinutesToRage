@@ -21,6 +21,18 @@ public class EventsPlayerInteraction : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    void Update() // temporary update function for testing key presses
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            TriggerEnemyKill();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            TriggerBreakableKill();
+        }
+    }
+
     public void TriggerEnemyKill()
     {
         EnemyKill?.Invoke();
