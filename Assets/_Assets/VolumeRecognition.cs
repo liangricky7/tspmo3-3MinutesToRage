@@ -7,9 +7,12 @@ public class VolumeRecognition : MonoBehaviour
     private string microphone;
     private AudioClip audioClip;
 
-    public int sampleWindow = 1024; // how many samples to measure at once; range from 64 to 8192
+    private int sampleWindow = 1024; // how many samples to measure at once; range from 64 to 8192
 
-    public float volume;
+    [SerializeField]
+    private float volume; // 0 to 1
+    [SerializeField]
+    private float bias = 3; // apply bias for louder volumes; higher exponent means more bias of louder; 1 means no bias
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +26,8 @@ public class VolumeRecognition : MonoBehaviour
     void Update()
     {
         volume = GetRMSVolume();
+        volume = Mathf.Pow(volume, bias); // apply bias
+        EnergyMeter.Instance.AddEnergy(volume / 8);
     }
 
     float GetRMSVolume()
