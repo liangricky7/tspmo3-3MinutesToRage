@@ -5,10 +5,8 @@ public class EventsComboSystem : MonoBehaviour
 {
     public static EventsComboSystem Instance { get; private set; }
 
-    public event Action OnPlayerDied;
-    public event Action<int> OnScoreChanged;   // passes an int payload
-    public event Action<string> OnItemPickedUp; // passes a string payload
-
+    public event Action ActivateComboSystem;
+    public event Action DeactivateComboSystem;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -22,18 +20,13 @@ public class EventsComboSystem : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void TriggerPlayerDied()
+    public void TriggerComboSystem()
     {
-        OnPlayerDied?.Invoke();
+        ActivateComboSystem?.Invoke();
     }
 
-    public void TriggerScoreChanged(int newScore)
+    public void UntriggerComboSystem()
     {
-        OnScoreChanged?.Invoke(newScore);
-    }
-
-    public void TriggerItemPickedUp(string itemName)
-    {
-        OnItemPickedUp?.Invoke(itemName);
+        DeactivateComboSystem?.Invoke();
     }
 }

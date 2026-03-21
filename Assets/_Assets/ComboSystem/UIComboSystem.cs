@@ -19,6 +19,9 @@ public class UIComboSystem : MonoBehaviour
     {
         EventsPlayerInteraction.Instance.EnemyKill -= ProcessEnemyKill;
         EventsPlayerInteraction.Instance.BreakableKill -= ProcessBreakableKill;
+
+        EventsComboSystem.Instance.ActivateComboSystem -= ActivateComboUI;
+        EventsComboSystem.Instance.DeactivateComboSystem -= DeactivateComboUI;
     }
 
     void Awake()
@@ -32,20 +35,39 @@ public class UIComboSystem : MonoBehaviour
         EventsPlayerInteraction.Instance.EnemyKill += ProcessEnemyKill;
         EventsPlayerInteraction.Instance.BreakableKill += ProcessBreakableKill;
 
+        EventsComboSystem.Instance.ActivateComboSystem += ActivateComboUI;
+        EventsComboSystem.Instance.DeactivateComboSystem += DeactivateComboUI;
+
         TextMeshProUGUI[] texts = gameObject.GetComponentsInChildren<TextMeshProUGUI>();
         tierText = texts[0];
         timerProgressText = texts[1];
+
+        canvasGroup.alpha = 0f;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false; 
     }
 
     // Update is called once per frame
     void Update()
     {
         if (ComboSystem.Instance == null) return;
-        canvasGroup.alpha = ComboSystem.Instance.isActivated ? 1f : 0f;
-        canvasGroup.interactable = ComboSystem.Instance.isActivated;
-        canvasGroup.blocksRaycasts = ComboSystem.Instance.isActivated;
+
         tierText.text = ComboSystem.Instance.CurrentComboTier.ToString();
         timerProgressText.text = (ComboSystem.Instance.comboTimer / ComboSystem.Instance.ComboTimeLimit[(int)ComboSystem.Instance.CurrentComboTier]).ToString("P0");
+    }
+
+    private void ActivateComboUI()
+    {
+        canvasGroup.alpha = 1f;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+    }
+    
+    private void DeactivateComboUI()
+    {
+        canvasGroup.alpha = 0f;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false; 
     }
 
     void ProcessEnemyKill()

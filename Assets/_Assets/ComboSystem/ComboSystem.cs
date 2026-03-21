@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public enum ComboTier
@@ -87,13 +88,13 @@ public class ComboSystem : MonoBehaviour
         }
         CurrentComboTier = ComboTier.None;
         CurrentComboScore = 0;
-        isActivated = false;
+        EventsComboSystem.Instance.UntriggerComboSystem();
     }
 
     void UpgradeCombo()
     {
         // used for turning off and on UI
-        isActivated = true;
+        EventsComboSystem.Instance.TriggerComboSystem();
 
         if (CurrentComboTier < ComboTier.S)
         {
