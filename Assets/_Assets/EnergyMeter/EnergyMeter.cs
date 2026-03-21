@@ -54,13 +54,22 @@ public class EnergyMeter : MonoBehaviour
             else if (!maxEnergyHoldTrigger && energyHoldTimer >= energyHoldTime)
             {
                 energyHoldTimer = 0f;
-                timerTrigger = false; 
+                timerTrigger = false;
                 // Debug.Log("normal energy hold");
             }
         }
         else
         {
             energy = energy - decayRate >= 0 ? energy - decayRate : 0;
+        }
+        
+        if (energy < 100f)
+        {
+            EventsEnergyMeter.Instance.TriggerSanity();
+        }
+        else
+        {
+            EventsEnergyMeter.Instance.TriggerInsanity();
         }
     }
 
