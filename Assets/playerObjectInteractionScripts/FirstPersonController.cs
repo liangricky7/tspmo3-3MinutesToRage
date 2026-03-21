@@ -8,6 +8,11 @@ public class FirstPersonController : MonoBehaviour
     public float jumpHeight = 1.5f;
     public float gravity = -20f;
 
+    [Header("Slide")]
+    public float slideSpeed = 15f;
+    public float slideDuration = 0.8f;
+    public float slideHeightReduction = 0.5f;
+
     [Header("Physics Push")]
     public float pushForce = 8f;
 
@@ -27,10 +32,19 @@ public class FirstPersonController : MonoBehaviour
     private float _grappleArcTime = 0f;
     private float _grappleArcDuration = 0f;
 
+    private bool _isSliding = false;
+    private float _slideTimer = 0f;
+    private Vector3 _slideDirection;
+    private float _defaultHeight;
+    private Vector3 _defaultCameraLocalPos;
+
     void Start()
     {
         _controller = GetComponent<CharacterController>();
         _camera = Camera.main;
+
+        _defaultHeight = _controller.height;
+        _defaultCameraLocalPos = _camera.transform.localPosition;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -52,26 +66,83 @@ public class FirstPersonController : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+        bool isMoving = Mathf.Abs(x) > 0.1f || Mathf.Abs(z) > 0.1f;
 
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-        float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
+        if (Input.GetKeyDown(KeyCode.LeftControl) && isMoving && _controller.isGrounded && !_isSliding)
+            StartSlide();
 
+        // Tick slide timer and restore height once it expires
+        if (_isSliding)
+        {
+            _slideTimer += Time.deltaTime;
+            if (_slideTimer >= slideDuration)
+                StopSlide();
+        }
+
+        // Gravity and jump — always run regardless of slide state
         if (_controller.isGrounded)
         {
             _verticalVelocity = -2f;
 
             if (Input.GetButtonDown("Jump"))
+            {
                 _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                if (_isSliding) StopSlide();
+            }
         }
         else
         {
             _verticalVelocity += gravity * Time.deltaTime;
         }
 
-        Vector3 move = (transform.right * x + transform.forward * z) * currentSpeed;
-        move.y = _verticalVelocity;
+        Vector3 move;
 
+        if (_isSliding)
+        {
+            // Blend from locked slide direction toward player input direction over the slide duration
+            float progress = _slideTimer / slideDuration;
+            float currentSlideSpeed = Mathf.Lerp(slideSpeed, moveSpeed, progress);
+
+            Vector3 inputDir = (transform.right * x + transform.forward * z).normalized;
+            Vector3 blendedDir = Vector3.Lerp(_slideDirection, inputDir == Vector3.zero ? _slideDirection : inputDir, progress);
+
+            move = blendedDir * currentSlideSpeed;
+        }
+        else
+        {
+            bool isSprinting = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+            float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
+            move = (transform.right * x + transform.forward * z) * currentSpeed;
+        }
+
+        move.y = _verticalVelocity;
         _controller.Move(move * Time.deltaTime);
+    }
+
+    void StartSlide()
+    {
+        _isSliding = true;
+        _slideTimer = 0f;
+
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        _slideDirection = (transform.right * x + transform.forward * z).normalized;
+
+        _controller.height = _defaultHeight - slideHeightReduction;
+        _controller.center = Vector3.zero;
+
+        Vector3 crouchedCamPos = _defaultCameraLocalPos;
+        crouchedCamPos.y -= slideHeightReduction * 0.5f;
+        _camera.transform.localPosition = crouchedCamPos;
+    }
+
+    void StopSlide()
+    {
+        _isSliding = false;
+
+        _controller.height = _defaultHeight;
+        _controller.center = Vector3.zero;
+        _camera.transform.localPosition = _defaultCameraLocalPos;
     }
 
     public void JumpToPosition(Vector3 targetPosition, float arcHeight)
