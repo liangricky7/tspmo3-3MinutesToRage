@@ -3,15 +3,22 @@ using UnityEngine;
 public class PaletteInsanityHook : MonoBehaviour
 {
     private PaletteShiftController palette;
+    private Camera cam;
 
     [Header("Thresholds")]
-    public float insanityStart   = 100f;
-    public float plateauStart    = 175f;
-    public float maxEnergy       = 250f;
+    public float insanityStart = 100f;
+    public float plateauStart  = 175f;
+    public float maxEnergy     = 250f;
+
+    [Header("FOV Settings")]
+    public float normalFOV = 60f;
+    public float maxFOV    = 100f;
+    public float fovSpeed  = 3f;
 
     void Start()
     {
         palette = GetComponent<PaletteShiftController>();
+        cam     = Camera.main;
 
         if (EventsEnergyMeter.Instance != null)
         {
@@ -33,6 +40,7 @@ public class PaletteInsanityHook : MonoBehaviour
     {
         float energy = EnergyMeter.Instance.energy;
 
+        // palette
         if (energy < insanityStart)
         {
             palette.intensity     = 0f;
@@ -51,6 +59,20 @@ public class PaletteInsanityHook : MonoBehaviour
             palette.hueShiftSpeed = 0.6f;
             palette.SetModeImmediate(3);
         }
+
+        // FOV
+        float targetFOV;
+        if (energy >= insanityStart)
+        {
+            float t = Mathf.InverseLerp(insanityStart, maxEnergy, energy);
+            targetFOV = Mathf.Lerp(normalFOV, maxFOV, t);
+        }
+        else
+        {
+            targetFOV = normalFOV;
+        }
+
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, fovSpeed * Time.deltaTime);
     }
 
     void HandleInsanity()
