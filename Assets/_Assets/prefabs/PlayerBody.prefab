@@ -181,6 +181,8 @@ GameObject:
   - component: {fileID: 1143187552611723107}
   - component: {fileID: 1143187552611723103}
   - component: {fileID: 1143187552611723104}
+  - component: {fileID: 4537165603423871834}
+  - component: {fileID: 6825155421786782410}
   m_Layer: 0
   m_Name: PlayerBody
   m_TagString: Untagged
@@ -240,7 +242,9 @@ MonoBehaviour:
   sprintSpeed: 15
   jumpHeight: 2
   gravity: -15
+  pushForce: 8
   mouseSensitivity: 2
+  freeze: 0
 --- !u!114 &1143187552611723103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,7 +264,7 @@ MonoBehaviour:
     m_Bits: 64
   lr: {fileID: 1143187552611723104}
   maxGrappleDistance: 30
-  pullForce: 15
+  pullForce: 20
   pullStopDistance: 1.5
   grapplingCd: 0.5
   grappleKey: 114
@@ -284,7 +288,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: c317d8b4a70515744bd93162565a5aa1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -310,7 +314,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.15
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -363,6 +367,48 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &4537165603423871834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143187552611723112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f935fbb776339664ab61f942674f5e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 1143187552543914573}
+  hitRange: 3
+  hitForce: 30
+  cooldown: 0.4
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  forceDirectionX: 1
+  forceDirectionY: -0.5
+--- !u!114 &6825155421786782410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143187552611723112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef30b63152008846a6db377519c5918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 1143187552543914573}
+  range: 50
+  force: 20
+  cooldown: 0.2
+  magSize: 2
+  currentAmmo: 0
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1143187552670382648
 GameObject:
   m_ObjectHideFlags: 0

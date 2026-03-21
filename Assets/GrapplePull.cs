@@ -36,10 +36,14 @@ public class GrapplePull : MonoBehaviour
             grapplingCdTimer -= Time.deltaTime;
 
         if (Input.GetKeyDown(grappleKey))
-            StartGrapple();
-
-        if (Input.GetKeyUp(grappleKey))
-            StopGrapple();
+        {
+            if (grappling) 
+            { 
+                StopGrapple();
+                grapplingCdTimer = grapplingCd / 2;
+            }
+            else StartGrapple();
+        }
 
         if (grappling && pulledObject != null)
             PullObject();
