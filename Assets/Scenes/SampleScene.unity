@@ -1398,7 +1398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: 0
-  bias: 3
+  bias: 1
 --- !u!1 &2083830969
 GameObject:
   m_ObjectHideFlags: 0
