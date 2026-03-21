@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: ebd16b97b3a100b499265b4f3d69043c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ringUIPrefab: {fileID: 8378337246835428829, guid: 75b6cb7071b5e75488fb3332c1c95b59, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
