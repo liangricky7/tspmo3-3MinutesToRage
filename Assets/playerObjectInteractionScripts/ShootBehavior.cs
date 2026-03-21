@@ -42,6 +42,14 @@ public class ShootBehavior : MonoBehaviour
         if (!Physics.Raycast(cam.position, cam.forward, out hit, range, hitLayers))
             return;
 
+        Breakable breakable = hit.collider.GetComponent<Breakable>();
+        if (breakable != null)
+        {
+            breakable.Break(hit.point);
+            _cooldownTimer = cooldown;
+            return;
+        }
+
         Rigidbody rb = hit.collider.attachedRigidbody;
         if (rb == null || rb.isKinematic) return;
 
