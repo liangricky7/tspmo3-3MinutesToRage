@@ -33,16 +33,10 @@ public class ComboSystem : MonoBehaviour
     [SerializeField]
     public float[] ComboScores = new float[] { 1f, 50f, 100f, 150f, 200f, 300f, 400f };
 
-    private void OnEnable()
-    {
-        EventsPlayerInteraction.Instance.EnemyKill += ProcessEnemyKill;
-        EventsPlayerInteraction.Instance.BreakableKill += ProcessBreakableKill;
-    }
-
     private void OnDisable()
     {
-        EventsPlayerInteraction.Instance.EnemyKill += ProcessEnemyKill;
-        EventsPlayerInteraction.Instance.BreakableKill += ProcessBreakableKill;
+        EventsPlayerInteraction.Instance.EnemyKill -= ProcessEnemyKill;
+        EventsPlayerInteraction.Instance.BreakableKill -= ProcessBreakableKill;
     }
 
     private void Awake()
@@ -57,6 +51,13 @@ public class ComboSystem : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
+
+    private void Start()
+    {
+        EventsPlayerInteraction.Instance.EnemyKill += ProcessEnemyKill;
+        EventsPlayerInteraction.Instance.BreakableKill += ProcessBreakableKill;
+    }
+
 
     void Update()
     {

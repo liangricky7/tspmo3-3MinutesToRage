@@ -14,11 +14,6 @@ public class UIComboSystem : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI timerProgressText;
 
-    private void OnEnable()
-    {
-        EventsPlayerInteraction.Instance.EnemyKill += ProcessEnemyKill;
-        EventsPlayerInteraction.Instance.BreakableKill += ProcessBreakableKill;
-    }
 
     private void OnDisable()
     {
@@ -34,6 +29,9 @@ public class UIComboSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EventsPlayerInteraction.Instance.EnemyKill += ProcessEnemyKill;
+        EventsPlayerInteraction.Instance.BreakableKill += ProcessBreakableKill;
+
         TextMeshProUGUI[] texts = gameObject.GetComponentsInChildren<TextMeshProUGUI>();
         tierText = texts[0];
         timerProgressText = texts[1];
@@ -52,11 +50,11 @@ public class UIComboSystem : MonoBehaviour
 
     void ProcessEnemyKill()
     {
-
+        UIComboSystemLog.Instance.AddEntry("Enemy killed! +" + ComboSystem.Instance.ComboScores[(int)ComboSystem.Instance.CurrentComboTier] + " points");
     }
     
     void ProcessBreakableKill()
     {
-        
+        UIComboSystemLog.Instance.AddEntry("Breakable destroyed! +" + ComboSystem.Instance.ComboScores[(int)ComboSystem.Instance.CurrentComboTier] + " points");
     }
 }
