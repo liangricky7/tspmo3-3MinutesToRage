@@ -23,7 +23,7 @@ public class HitCircle : MonoBehaviour
     float GetScaleForDistance()
     {
         float distance = Vector3.Distance(Camera.main.transform.position, transform.position);
-        return distance * 0.005f;
+        return distance * 0.006f;
     }
 
     void Update()
