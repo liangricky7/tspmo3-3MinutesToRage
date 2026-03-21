@@ -10,7 +10,7 @@ public class UIComboSystemLog : MonoBehaviour
     [SerializeField] private GameObject logEntryPrefab;
     [SerializeField] private Transform content;
     [SerializeField] private ScrollRect scrollRect;
-    [SerializeField] private int maxEntries = 20;
+    [SerializeField] private int maxEntries = 5;
 
     private void Awake()
     {
