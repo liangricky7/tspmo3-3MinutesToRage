@@ -27,7 +27,7 @@ public class VolumeRecognition : MonoBehaviour
     {
         volume = GetRMSVolume();
         volume = Mathf.Pow(volume, bias); // apply bias
-        EnergyMeter.Instance.AddEnergy(volume / 8);
+        EnergyMeter.Instance.AddEnergy(volume);
     }
 
     float GetRMSVolume()
