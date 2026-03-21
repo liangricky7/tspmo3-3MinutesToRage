@@ -396,7 +396,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -299.14444, y: 10.0924}
+  m_AnchoredPosition: {x: -218, y: -0.0000076294}
   m_SizeDelta: {x: 43.7111, y: 224.0087}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &509179227
@@ -544,6 +544,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &769096997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 769096999}
+  - component: {fileID: 769096998}
+  m_Layer: 0
+  m_Name: StyleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &769096998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769096997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa6fa13bd5a1df43ab37f54da833aee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decayRate: 0.15
+  pointsPerKill: 0.2
+  styleHeat: 0
+--- !u!4 &769096999
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769096997}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 210.33768, y: 114.185936, z: 3.9565282}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &854334626
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +634,8 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -630,7 +679,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -661,6 +710,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab9a39f3389c524cab307e78a73a5b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  insanityStart: 100
+  plateauStart: 175
+  maxEnergy: 250
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c296b2ba88223645939aea6fa9bfe5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paletteMat: {fileID: 2100000, guid: 8625336b1005974489515422d232cb41, type: 2}
+  hueShiftSpeed: 0.2
+  intensity: 1
 --- !u!1 &1388695947
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,6 +820,7 @@ GameObject:
   - component: {fileID: 1726346737}
   - component: {fileID: 1726346738}
   - component: {fileID: 1726346739}
+  - component: {fileID: 1726346740}
   m_Layer: 0
   m_Name: EnergyMeter
   m_TagString: Untagged
@@ -808,3 +888,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604f83a61699f4ed084a824250cddebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1726346740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726346735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad060993d45854ce3920908d17286918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSane: 1
