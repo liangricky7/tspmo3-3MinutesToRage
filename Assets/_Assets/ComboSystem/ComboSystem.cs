@@ -22,11 +22,10 @@ public class ComboSystem : MonoBehaviour
 
     // combo timer variables
     private Coroutine comboTimerCoroutine;
-    [SerializeField]
-    float comboTimer = 0f;
+    public float comboTimer = 0f;
 
     [SerializeField]
-    private float[] ComboTimeLimit = new float[] { 0f, 2f, 1.5f, 1.2f, 1.2f, 1f, 1f };
+    public float[] ComboTimeLimit = new float[] { 0f, 2f, 1.5f, 1.2f, 1.2f, 1f, 1f };
 
     private void OnEnable()
     {
@@ -96,6 +95,11 @@ public class ComboSystem : MonoBehaviour
     
     void UpgradeCombo()
     {
+        if (!isActivated)
+        {
+            Debug.Log("Combo system not activated yet");
+            return;
+        }
         if (CurrentComboTier < ComboTier.S)
         {
             CurrentComboTier++;
