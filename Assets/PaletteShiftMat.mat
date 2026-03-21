@@ -68,7 +68,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _HueShift: 0.5398353
-    - _Intensity: 0.066759065
+    - _Intensity: 1
     - _MagentaSpike: 0
     - _Metallic: 0
     - _Mode: 3
