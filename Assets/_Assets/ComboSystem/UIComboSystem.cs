@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,18 @@ public class UIComboSystem : MonoBehaviour
     private TextMeshProUGUI tierText;
     [SerializeField]
     private TextMeshProUGUI timerProgressText;
+
+    private void OnEnable()
+    {
+        EventsPlayerInteraction.Instance.EnemyKill += ProcessEnemyKill;
+        EventsPlayerInteraction.Instance.BreakableKill += ProcessBreakableKill;
+    }
+
+    private void OnDisable()
+    {
+        EventsPlayerInteraction.Instance.EnemyKill -= ProcessEnemyKill;
+        EventsPlayerInteraction.Instance.BreakableKill -= ProcessBreakableKill;
+    }
 
     void Awake()
     {
@@ -30,11 +43,20 @@ public class UIComboSystem : MonoBehaviour
     void Update()
     {
         if (ComboSystem.Instance == null) return;
-        canvasGroup.alpha          = ComboSystem.Instance.isActivated ? 1f : 0f;
-        canvasGroup.interactable   = ComboSystem.Instance.isActivated;
+        canvasGroup.alpha = ComboSystem.Instance.isActivated ? 1f : 0f;
+        canvasGroup.interactable = ComboSystem.Instance.isActivated;
         canvasGroup.blocksRaycasts = ComboSystem.Instance.isActivated;
         tierText.text = ComboSystem.Instance.CurrentComboTier.ToString();
         timerProgressText.text = (ComboSystem.Instance.comboTimer / ComboSystem.Instance.ComboTimeLimit[(int)ComboSystem.Instance.CurrentComboTier]).ToString("P0");
+    }
 
+    void ProcessEnemyKill()
+    {
+
+    }
+    
+    void ProcessBreakableKill()
+    {
+        
     }
 }

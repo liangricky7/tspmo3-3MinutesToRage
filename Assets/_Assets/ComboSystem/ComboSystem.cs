@@ -17,7 +17,7 @@ public class ComboSystem : MonoBehaviour
 {
     public static ComboSystem Instance { get; private set; }
     public ComboTier CurrentComboTier { get; private set; } = ComboTier.None;
-
+    // used for turning off and on UI    
     public bool isActivated = false;
 
     // combo timer variables
@@ -25,18 +25,24 @@ public class ComboSystem : MonoBehaviour
     public float comboTimer = 0f;
 
     [SerializeField]
-    public float[] ComboTimeLimit = new float[] { 0f, 2f, 1.5f, 1.2f, 1.2f, 1f, 1f };
+    public float[] ComboTimeLimit = new float[] { 0f, 4f, 4f, 3f, 3f, 2f, 2f };
+
+    // combo scoring
+    public float CurrentComboScore { get; private set; } = 0f;
+
+    [SerializeField]
+    public float[] ComboScores = new float[] { 1f, 50f, 100f, 150f, 200f, 300f, 400f };
 
     private void OnEnable()
     {
-        EventsPlayerInteraction.Instance.EnemyKill += ActivateComboSystem;
-        EventsPlayerInteraction.Instance.BreakableKill += ActivateComboSystem;
+        EventsPlayerInteraction.Instance.EnemyKill += ProcessEnemyKill;
+        EventsPlayerInteraction.Instance.BreakableKill += ProcessBreakableKill;
     }
 
     private void OnDisable()
     {
-        EventsPlayerInteraction.Instance.EnemyKill -= ActivateComboSystem;
-        EventsPlayerInteraction.Instance.BreakableKill -= ActivateComboSystem;
+        EventsPlayerInteraction.Instance.EnemyKill += ProcessEnemyKill;
+        EventsPlayerInteraction.Instance.BreakableKill += ProcessBreakableKill;
     }
 
     private void Awake()
@@ -54,31 +60,20 @@ public class ComboSystem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            ActivateComboSystem();
-        }
         if (Input.GetKeyDown(KeyCode.K))
         {
             UpgradeCombo();
         }
-        Debug.Log($"Current combo tier: {CurrentComboTier}, Combo timer: {comboTimer}");
-    }
-
-    void ActivateComboSystem()
-    {
-        if (isActivated)
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("Combo system already activated");
-            return;
+            CurrentComboScore += 30f;
+            if (CurrentComboTier == ComboTier.S) comboTimer = 0f;
         }
-
-        Debug.Log("Combo system activated");
-
-        isActivated = true;
-        CurrentComboTier = ComboTier.F;
-        // pull up combo UI
-        comboTimerCoroutine = StartCoroutine(StartTimer());
+        if (CurrentComboScore >= ComboScores[(int)CurrentComboTier])
+        {
+            UpgradeCombo();
+        }
+        Debug.Log($"Current combo tier: {CurrentComboTier}, Combo timer: {comboTimer}");
     }
 
     private IEnumerator StartTimer()
@@ -90,21 +85,32 @@ public class ComboSystem : MonoBehaviour
             yield return null;
         }
         CurrentComboTier = ComboTier.None;
+        CurrentComboScore = 0;
         isActivated = false;
     }
-    
+
     void UpgradeCombo()
     {
-        if (!isActivated)
-        {
-            Debug.Log("Combo system not activated yet");
-            return;
-        }
+        // used for turning off and on UI
+        isActivated = true;
+
         if (CurrentComboTier < ComboTier.S)
         {
             CurrentComboTier++;
-            StopCoroutine(comboTimerCoroutine);
+            if (comboTimerCoroutine != null) StopCoroutine(comboTimerCoroutine);
             comboTimerCoroutine = StartCoroutine(StartTimer());
         }
+    }
+
+    void ProcessEnemyKill()
+    {
+        CurrentComboScore += 100f;
+        if (CurrentComboTier == ComboTier.S) comboTimer = 0f;
+    }
+    
+    void ProcessBreakableKill()
+    {
+        CurrentComboScore += 50f;
+        if (CurrentComboTier == ComboTier.S) comboTimer = 0f;
     }
 }
