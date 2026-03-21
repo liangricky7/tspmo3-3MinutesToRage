@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class UIComboSystem : MonoBehaviour
+{
+    private CanvasGroup canvasGroup;
+
+    [SerializeField]
+    private TextMeshProUGUI tierText;
+    [SerializeField]
+    private TextMeshProUGUI timerProgressText;
+
+    void Awake()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        TextMeshProUGUI[] texts = gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+        tierText = texts[0];
+        timerProgressText = texts[1];
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (ComboSystem.Instance == null) return;
+        canvasGroup.alpha          = ComboSystem.Instance.isActivated ? 1f : 0f;
+        canvasGroup.interactable   = ComboSystem.Instance.isActivated;
+        canvasGroup.blocksRaycasts = ComboSystem.Instance.isActivated;
+        tierText.text = ComboSystem.Instance.CurrentComboTier.ToString();
+        timerProgressText.text = (ComboSystem.Instance.comboTimer / ComboSystem.Instance.ComboTimeLimit[(int)ComboSystem.Instance.CurrentComboTier]).ToString("P0");
+
+    }
+}
