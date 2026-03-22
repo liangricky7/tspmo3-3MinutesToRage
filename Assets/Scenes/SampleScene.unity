@@ -638,8 +638,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SHOTGUN READY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1c23a46404c82467eb59000e62b55ed0, type: 2}
+  m_sharedMaterial: {fileID: -6926968036824701193, guid: 1c23a46404c82467eb59000e62b55ed0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -817,8 +817,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Time
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4eeb281063bf449028252d55ebdf2ea7, type: 2}
+  m_sharedMaterial: {fileID: 4031178721598197958, guid: 4eeb281063bf449028252d55ebdf2ea7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1697,8 +1697,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Points Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc6fad3f2462d49aaa8e07da5b4c2348, type: 2}
+  m_sharedMaterial: {fileID: -5304922672336500158, guid: fc6fad3f2462d49aaa8e07da5b4c2348, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2123,8 +2123,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1c23a46404c82467eb59000e62b55ed0, type: 2}
+  m_sharedMaterial: {fileID: -6926968036824701193, guid: 1c23a46404c82467eb59000e62b55ed0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3123,6 +3123,8 @@ MonoBehaviour:
   pullStopDistance: 1.5
   grapplingCd: 0.5
   grappleKey: 114
+  grappleStartSound: {fileID: 0}
+  grappleStopSound: {fileID: 0}
 --- !u!1 &1143187553191796256
 GameObject:
   m_ObjectHideFlags: 0
@@ -3505,6 +3507,8 @@ MonoBehaviour:
     m_Bits: 64
   forceDirectionX: 1
   forceDirectionY: -0.5
+  swingSound: {fileID: 0}
+  hitSound: {fileID: 0}
   animator: {fileID: 8783628529098513776}
 --- !u!224 &4668095087576178527
 RectTransform:
@@ -3689,6 +3693,8 @@ MonoBehaviour:
   fillImage: {fileID: 1205412604}
   readyColor: {r: 0.11792451, g: 1, b: 0.97316235, a: 1}
   depletedColor: {r: 1, g: 1, b: 1, a: 0.6}
+  shootSound: {fileID: 0}
+  readySound: {fileID: 0}
 --- !u!222 &6884336312512725293
 CanvasRenderer:
   m_ObjectHideFlags: 0
