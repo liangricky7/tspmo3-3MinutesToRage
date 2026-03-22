@@ -20,8 +20,11 @@ public class BatBehavior : MonoBehaviour
 
     [Header("Audio")]
     public AudioClip swingSound;
-    public AudioClip hitSound;
     private AudioSource audioSource;
+
+    [Header("Attack Timeout")]
+    public float attackTimeoutDuration = 1f;
+    private float _attackTimeout = 0f;
 
     private float _cooldownTimer = 0f;
     private bool _swingFromRight = true;
@@ -39,14 +42,29 @@ public class BatBehavior : MonoBehaviour
         if (_cooldownTimer > 0f)
             _cooldownTimer -= Time.deltaTime;
 
+        // safety reset if animation event never fires
+        if (animator.GetBool("isAttacking"))
+        {
+            _attackTimeout += Time.deltaTime;
+            if (_attackTimeout >= attackTimeoutDuration)
+            {
+                EndAttack();
+                _attackTimeout = 0f;
+            }
+        }
+        else
+        {
+            _attackTimeout = 0f;
+        }
+
         if (Input.GetMouseButtonDown(0) && _cooldownTimer <= 0f && animator.GetBool("isAttacking") == false)
             StartAttack();
     }
 
-    void StartAttack()
+    public void StartAttack()
     {
         animator.SetBool("isAttacking", true);
-        PlaySound(swingSound); // plays on swing
+        PlaySound(swingSound);
     }
 
     public void Attack()
@@ -63,7 +81,6 @@ public class BatBehavior : MonoBehaviour
                 EnergyMeter.Instance.AddEnergy(energyReward);
                 hitCircle.DestroyEnemy();
                 _cooldownTimer = cooldown;
-                PlaySound(hitSound); // plays on hit
             }
             return;
         }
@@ -73,7 +90,6 @@ public class BatBehavior : MonoBehaviour
         {
             breakable.Break(hit.point);
             _cooldownTimer = cooldown;
-            PlaySound(hitSound);
             return;
         }
 
@@ -89,7 +105,6 @@ public class BatBehavior : MonoBehaviour
         rb.AddForce(swingDir * hitForce, ForceMode.Impulse);
 
         _cooldownTimer = cooldown;
-        PlaySound(hitSound);
     }
 
     void PlaySound(AudioClip clip)

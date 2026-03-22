@@ -1434,6 +1434,11 @@ MonoBehaviour:
   content: {fileID: 1033801469}
   scrollRect: {fileID: 1038761048}
   maxEntries: 5
+  minFontSize: 10
+  maxFontSize: 24
+  topWidthPercent: 1
+  bottomWidthPercent: 0.62
+  textPadding: 4
 --- !u!1 &1161829522
 GameObject:
   m_ObjectHideFlags: 0
@@ -3689,6 +3694,7 @@ MonoBehaviour:
   pushForce: 8
   mouseSensitivity: 2
   freeze: 0
+  _isSliding: 0
 --- !u!120 &1143187553125647118
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3829,6 +3835,8 @@ MonoBehaviour:
   pullStopDistance: 1.5
   grapplingCd: 0.5
   grappleKey: 114
+  grappleStartSound: {fileID: 0}
+  grappleStopSound: {fileID: 0}
 --- !u!1 &1143187553191796256
 GameObject:
   m_ObjectHideFlags: 0
@@ -4066,9 +4074,7 @@ MonoBehaviour:
   insanityStart: 100
   plateauStart: 175
   maxEnergy: 250
-  normalFOV: 60
-  maxFOV: 100
-  fovSpeed: 3
+  insanityFOVBoost: 30
 --- !u!114 &2453663549467770728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4212,6 +4218,8 @@ MonoBehaviour:
     m_Bits: 64
   forceDirectionX: 1
   forceDirectionY: -0.5
+  swingSound: {fileID: 0}
+  hitSound: {fileID: 0}
   animator: {fileID: 8783628529098513776}
 --- !u!224 &4668095087576178527
 RectTransform:
@@ -4437,6 +4445,8 @@ MonoBehaviour:
   fillImage: {fileID: 1205412604}
   readyColor: {r: 0.11792451, g: 1, b: 0.97316235, a: 1}
   depletedColor: {r: 1, g: 1, b: 1, a: 0.6}
+  shootSound: {fileID: 0}
+  readySound: {fileID: 0}
 --- !u!222 &6884336312512725293
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4487,7 +4497,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -330.47644, y: 0}
+  m_AnchoredPosition: {x: -327, y: 0}
   m_SizeDelta: {x: 660.9529, y: 1080}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!95 &8516881565899800037
