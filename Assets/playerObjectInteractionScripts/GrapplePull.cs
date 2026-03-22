@@ -66,7 +66,11 @@ public class GrapplePull : MonoBehaviour
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, whatIsGrappable))
         {
             Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
-            if (rb == null) return; // Object must have a Rigidbody to be pulled
+            if (rb == null) return;
+
+            // Disable enemy tracking while grappled
+            EnemyBehavior tracker = hit.collider.GetComponent<EnemyBehavior>();
+            if (tracker != null) tracker.isGrappled = true;
 
             pulledObject = rb;
             grappling = true;
@@ -85,30 +89,34 @@ public class GrapplePull : MonoBehaviour
         Vector3 directionToPlayer = (transform.position - pulledObject.position);
         float distance = directionToPlayer.magnitude;
 
-        // Stop pulling once close enough
         if (distance <= pullStopDistance)
         {
             StopGrapple();
             return;
         }
 
-        // Move the object toward the player using velocity so it respects physics
-        pulledObject.velocity = directionToPlayer.normalized * pullForce;
+        if (pulledObject.isKinematic)
+            pulledObject.MovePosition(pulledObject.position + directionToPlayer.normalized * pullForce * Time.deltaTime);
+        else
+            pulledObject.velocity = directionToPlayer.normalized * pullForce;
     }
 
     void StopGrapple()
+{
+    if (pulledObject != null)
     {
-        if (pulledObject != null)
-        {
-            pulledObject.velocity = Vector3.zero;
-            pulledObject = null;
-        }
+        // Re-enable enemy tracking on release
+        EnemyBehavior tracker = pulledObject.GetComponent<EnemyBehavior>();
+        if (tracker != null) tracker.isGrappled = false;
 
-        grappling = false;
-        grapplingCdTimer = grapplingCd;
-
-        if (lr != null) lr.enabled = false;
+        pulledObject.velocity = Vector3.zero;
+        pulledObject = null;
     }
+
+    grappling = false;
+    grapplingCdTimer = grapplingCd;
+    if (lr != null) lr.enabled = false;
+}
 
     public bool IsGrappling() => grappling;
 }
