@@ -11,6 +11,7 @@ public class ShootBehavior : MonoBehaviour
     public float range = 50f;
     public float force = 20f;
     public float cooldown = 0.2f;
+    public float energyReward = 30f;
     public int magSize = 2;
     public int currentAmmo;
     public LayerMask hitLayers;
@@ -50,6 +51,18 @@ public class ShootBehavior : MonoBehaviour
         RaycastHit hit;
         if (!Physics.Raycast(cam.position, cam.forward, out hit, range, hitLayers))
             return;
+
+        HitCircle hitCircle = hit.collider.GetComponentInParent<HitCircle>();
+        if (hitCircle != null)
+        {
+            if (hitCircle.TryHit())
+            {
+                EnergyMeter.Instance.AddEnergy(energyReward);
+                hitCircle.DestroyEnemy();
+                _cooldownTimer = cooldown;
+            }
+            return;
+        }
 
         Breakable breakable = hit.collider.GetComponent<Breakable>();
         if (breakable != null)

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - EnemyGhost
+  - Breakable
   layers:
   - Default
   - TransparentFX

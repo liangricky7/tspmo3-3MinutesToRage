@@ -14,14 +14,26 @@ public class EnemySpawner : MonoBehaviour
 
     private float timer;
 
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
+
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= spawnInterval && CountEnemies() < maxEnemies)
+        if (EnergyMeter.Instance.SanityCheck())
         {
-            SpawnEnemy();
-            timer = 0f;
+            timer += Time.deltaTime;
+            if (timer >= spawnInterval && CountEnemies() < maxEnemies)
+            {
+                SpawnEnemy();
+                timer = 0f;
+            }
         }
+        else
+        {
+            timer = 0f;
+            if (CountEnemies() > 0)
+                clearEnemies();
+        }
+
     }
 
     void SpawnEnemy()
@@ -32,7 +44,8 @@ public class EnemySpawner : MonoBehaviour
         Vector3 directionToPlayer = (player.position - spawnPos).normalized;
         Quaternion spawnRotation = Quaternion.LookRotation(directionToPlayer);
 
-        Instantiate(prefab, spawnPos, spawnRotation);
+        GameObject enemy = Instantiate(prefab, spawnPos, spawnRotation);
+        spawnedEnemies.Add(enemy);
     }
 
     Vector3 GetRandomSpawnPosition()
@@ -55,7 +68,23 @@ public class EnemySpawner : MonoBehaviour
 
     int CountEnemies()
     {
-        return GameObject.FindGameObjectsWithTag("EnemyGhost").Length;
+        spawnedEnemies.RemoveAll(e => e == null);
+        return spawnedEnemies.Count;
+    }
+
+    void clearEnemies()
+    {
+        foreach (GameObject enemy in spawnedEnemies)
+        {
+            if (enemy != null) 
+            {
+                if (enemy.TryGetComponent<HitCircle>(out HitCircle hitCircle))
+                    hitCircle.DestroyEnemy();
+                else
+                    Destroy(enemy); 
+            }
+        }
+        spawnedEnemies.Clear();
     }
 
     void OnDrawGizmosSelected()

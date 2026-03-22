@@ -73,9 +73,20 @@ public class EnergyMeter : MonoBehaviour
         }
     }
 
+    public bool SanityCheck()
+    {
+        return energy > 100f;
+    }
+
     public void AddEnergy(float amount)
     {
-        if (amount <= 0.1f) return; // ignore very small energy additions
+        if (amount <= 0.1f && amount >= -0.1f) return; // ignore very small energy additions
+
+        if (amount < 0f)
+        {
+            energy = Mathf.Max(0f, energy + amount);
+            return; // subtractions skip the hold timer logic
+        }
 
         if (energy + amount > 250f)
         {
