@@ -11,6 +11,9 @@ public class TimePointSystem : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI timerText;
 
+    [SerializeField]
+    private Canvas gameOverCanvas;
+
     public float Score { get; private set; }
     public bool GameActive { get; private set; }
 
@@ -34,7 +37,7 @@ public class TimePointSystem : MonoBehaviour
     void Start()
     {
         scoreText.text = "0";
-        StartTimer(180);
+        StartTimer(4);
     }
 
     public void StartTimer(int timeLimit)
@@ -62,6 +65,8 @@ public class TimePointSystem : MonoBehaviour
         }
 
         GameActive = false;
+        gameOverCanvas.gameObject.SetActive(true);
+        gameOverCanvas.GetComponentInChildren<TextMeshProUGUI>().text = $"Game Over!\nFinal Score: {Score}";
     }
     public void AddScore(float addition)
     {
