@@ -15,7 +15,7 @@ public class ShootBehavior : MonoBehaviour
     public int currentAmmo;
     public LayerMask hitLayers;
 
-    private float _cooldownTimer = 0f;
+    public float _cooldownTimer = 0f;
 
     [Header("Animator")]
 
