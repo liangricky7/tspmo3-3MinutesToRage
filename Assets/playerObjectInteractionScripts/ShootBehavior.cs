@@ -30,22 +30,28 @@ public class ShootBehavior : MonoBehaviour
     [SerializeField]
     public UnityEngine.UI.Image fillImage;
 
-    public Color readyColor = new Color(0.118f, 1f, 0.973f, 1f);
+    public Color readyColor    = new Color(0.118f, 1f, 0.973f, 1f);
     public Color depletedColor = new Color(0.3f, 0.3f, 0.3f, 0.6f);
 
+    [Header("Audio")]
+    public AudioClip shootSound;
+    public AudioClip readySound;
+    private AudioSource audioSource;
+    private bool wasOnCooldown = false;
 
     void OnDisable()
     {
-        EventsEnergyMeter.Instance.OnSane -= DisallowShooting;
+        EventsEnergyMeter.Instance.OnSane   -= DisallowShooting;
         EventsEnergyMeter.Instance.OnInsane -= AllowShooting;
     }
 
     void Start()
     {
-        EventsEnergyMeter.Instance.OnSane += DisallowShooting;
+        EventsEnergyMeter.Instance.OnSane   += DisallowShooting;
         EventsEnergyMeter.Instance.OnInsane += AllowShooting;
-        
-        // make sure ui turned off on start
+
+        audioSource = GetComponent<AudioSource>();
+
         cooldownBar.gameObject.SetActive(false);
         readyText.gameObject.SetActive(false);
     }
@@ -65,17 +71,18 @@ public class ShootBehavior : MonoBehaviour
     void Update()
     {
         if (!canShoot) return;
-        
+
         if ((Time.time - lastShotTime) >= cooldownDuration)
-        {
             onCooldown = false;
-        }
+
+        if (wasOnCooldown && !onCooldown)
+            PlaySound(readySound);
+        wasOnCooldown = onCooldown;
 
         if (onCooldown)
         {
             cooldownBar.gameObject.SetActive(true);
             readyText.gameObject.SetActive(false);
-
             SetFill((Time.time - lastShotTime) / cooldownDuration);
         }
         else
@@ -93,9 +100,11 @@ public class ShootBehavior : MonoBehaviour
         animator.SetBool("ShootingGun", true);
     }
 
-    public void Fire()
+    public void Fire(bool playSound = true)
     {
         lastShotTime = Time.time;
+        if (playSound) PlaySound(shootSound);
+
         RaycastHit hit;
         if (!Physics.Raycast(cam.position, cam.forward, out hit, range, hitLayers))
             return;
@@ -134,5 +143,11 @@ public class ShootBehavior : MonoBehaviour
     {
         fillImage.fillAmount = t;
         fillImage.color = Color.Lerp(depletedColor, readyColor, t);
+    }
+
+    void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+            audioSource.PlayOneShot(clip);
     }
 }

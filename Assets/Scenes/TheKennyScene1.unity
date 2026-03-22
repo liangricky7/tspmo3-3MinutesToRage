@@ -271,7 +271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d44ab3316834c579c3e06a1477d5a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyText: {fileID: 1562001860}
+  fillImage: {fileID: 0}
+  readyColor: {r: 0.118, g: 1, b: 0.973, a: 1}
+  depletedColor: {r: 0.3, g: 0.3, b: 0.3, a: 0.6}
 --- !u!114 &76742575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,6 +513,14 @@ MonoBehaviour:
   - 200
   - 300
   - 400
+  ComboMult:
+  - 0
+  - 1
+  - 1.1
+  - 1.4
+  - 1.8
+  - 2
+  - 3
 --- !u!114 &561083623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2269,7 +2279,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1815452470}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 341c4948758792944ac4240d8b1f432d, type: 3}
@@ -2365,14 +2375,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1815452470}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2f8a8c7c442b5a4693c658625cfb147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip3: {fileID: 8300000, guid: 7d915dd865e03cf4294fdf5101464967, type: 3}
+  clip3: {fileID: 8300000, guid: b1bfeb5cbff6d314ea780011f778a0f3, type: 3}
   clip2: {fileID: 8300000, guid: 213ccb4247789d141a14ad10c088cbbb, type: 3}
-  clip1: {fileID: 8300000, guid: b1bfeb5cbff6d314ea780011f778a0f3, type: 3}
+  clip1: {fileID: 8300000, guid: 7d915dd865e03cf4294fdf5101464967, type: 3}
   clipReady: {fileID: 8300000, guid: a8480c084b5d6394fa014dabf65c5df3, type: 3}
   music: {fileID: 8300000, guid: 341c4948758792944ac4240d8b1f432d, type: 3}
 --- !u!1 &2054188732
@@ -2568,6 +2578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604f83a61699f4ed084a824250cddebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!114 &2055338821
 MonoBehaviour:
   m_ObjectHideFlags: 0

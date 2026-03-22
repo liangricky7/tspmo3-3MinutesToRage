@@ -44,13 +44,13 @@ public class VoiceCommands : MonoBehaviour
 
         if (args.text == "bang")
         {
-            shootBehavior.Fire();
+            shootBehavior.Fire(); // plays shoot sound normally
             PlaySound(shootSound);
         }
 
         if (args.text == "hollow purple")
         {
-            shootBehavior.Fire();
+            shootBehavior.Fire(false); // no shoot sound
             PlaySound(hollowPurpleSound);
             hollowPurpleEffect.Trigger();
         }

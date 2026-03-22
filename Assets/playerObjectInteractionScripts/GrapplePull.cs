@@ -21,6 +21,11 @@ public class GrapplePull : MonoBehaviour
     [Header("Input")]
     public KeyCode grappleKey = KeyCode.Mouse1;
 
+    [Header("Audio")]
+    public AudioClip grappleStartSound;
+    public AudioClip grappleStopSound;
+    private AudioSource audioSource;
+
     private float grapplingCdTimer = 0f;
     private Rigidbody pulledObject = null;
     private bool grappling = false;
@@ -28,6 +33,7 @@ public class GrapplePull : MonoBehaviour
     void Start()
     {
         if (lr != null) lr.enabled = false;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -37,8 +43,8 @@ public class GrapplePull : MonoBehaviour
 
         if (Input.GetKeyDown(grappleKey))
         {
-            if (grappling) 
-            { 
+            if (grappling)
+            {
                 StopGrapple();
                 grapplingCdTimer = grapplingCd / 2;
             }
@@ -68,12 +74,13 @@ public class GrapplePull : MonoBehaviour
             Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
             if (rb == null) return;
 
-            // Disable enemy tracking while grappled
             EnemyBehavior tracker = hit.collider.GetComponent<EnemyBehavior>();
             if (tracker != null) tracker.isGrappled = true;
 
             pulledObject = rb;
             grappling = true;
+
+            PlaySound(grappleStartSound);
 
             if (lr != null)
             {
@@ -102,21 +109,28 @@ public class GrapplePull : MonoBehaviour
     }
 
     void StopGrapple()
-{
-    if (pulledObject != null)
     {
-        // Re-enable enemy tracking on release
-        EnemyBehavior tracker = pulledObject.GetComponent<EnemyBehavior>();
-        if (tracker != null) tracker.isGrappled = false;
+        if (pulledObject != null)
+        {
+            EnemyBehavior tracker = pulledObject.GetComponent<EnemyBehavior>();
+            if (tracker != null) tracker.isGrappled = false;
 
-        pulledObject.velocity = Vector3.zero;
-        pulledObject = null;
+            pulledObject.velocity = Vector3.zero;
+            pulledObject = null;
+        }
+
+        grappling = false;
+        grapplingCdTimer = grapplingCd;
+        if (lr != null) lr.enabled = false;
+
+        PlaySound(grappleStopSound);
     }
 
-    grappling = false;
-    grapplingCdTimer = grapplingCd;
-    if (lr != null) lr.enabled = false;
-}
+    void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+            audioSource.PlayOneShot(clip);
+    }
 
     public bool IsGrappling() => grappling;
 }
