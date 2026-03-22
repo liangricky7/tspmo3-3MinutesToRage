@@ -15,7 +15,7 @@ public class ShootBehavior : MonoBehaviour
     public int currentAmmo;
     public LayerMask hitLayers;
 
-    private float _cooldownTimer = 0f;
+    public float _cooldownTimer = 0f;
 
     void Start()
     {
@@ -31,7 +31,7 @@ public class ShootBehavior : MonoBehaviour
             Fire();
     }
 
-    void Fire()
+    public void Fire()
     {
         /*currentAmmo--;
         if (currentAmmo == 0)

@@ -29,7 +29,7 @@ public class BatBehavior : MonoBehaviour
             Attack();
     }
 
-    void Attack()
+    public void Attack()
     {
         RaycastHit hit;
         if (!Physics.Raycast(cam.position, cam.forward, out hit, hitRange, hitLayers))
