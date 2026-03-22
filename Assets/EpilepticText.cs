@@ -8,7 +8,6 @@ public class EpilepticText : MonoBehaviour
     {
         Color.white,
         Color.red,
-        Color.yellow,
     };
 
     public float interval = 0.1f;

@@ -30,7 +30,7 @@ public class ShootBehavior : MonoBehaviour
     [SerializeField]
     public UnityEngine.UI.Image fillImage;
 
-    public Color readyColor   = new Color(1f, 0.63f, 0.15f, 1f);
+    public Color readyColor = new Color(0.118f, 1f, 0.973f, 1f);
     public Color depletedColor = new Color(0.3f, 0.3f, 0.3f, 0.6f);
 
 
