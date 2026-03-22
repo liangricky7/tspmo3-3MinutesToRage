@@ -56,4 +56,11 @@ public class UIComboSystemLog : MonoBehaviour
 
         scrollRect.verticalNormalizedPosition = 0f;
     }
+
+    public void ClearEntries()
+    {
+        foreach (Transform child in content)
+            Destroy(child.gameObject);
+    }
+
 }

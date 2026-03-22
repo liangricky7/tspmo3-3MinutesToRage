@@ -68,6 +68,7 @@ public class UIComboSystem : MonoBehaviour
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false; 
+        UIComboSystemLog.Instance.ClearEntries();
     }
 
     void ProcessEnemyKill()

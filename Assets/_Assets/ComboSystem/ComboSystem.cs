@@ -75,7 +75,7 @@ public class ComboSystem : MonoBehaviour
         {
             UpgradeCombo();
         }
-        Debug.Log($"Current combo tier: {CurrentComboTier}, Combo timer: {comboTimer}");
+        // Debug.Log($"Current combo tier: {CurrentComboTier}, Combo timer: {comboTimer}");
     }
 
     private IEnumerator StartTimer()
@@ -87,6 +87,7 @@ public class ComboSystem : MonoBehaviour
             yield return null;
         }
         CurrentComboTier = ComboTier.None;
+        comboTimer = 0f;
         CurrentComboScore = 0;
         EventsComboSystem.Instance.UntriggerComboSystem();
     }
