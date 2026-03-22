@@ -58,7 +58,7 @@ public class GrapplePull : MonoBehaviour
         }
     }
 
-    void StartGrapple()
+    public void StartGrapple()
     {
         if (grapplingCdTimer > 0f) return;
 
