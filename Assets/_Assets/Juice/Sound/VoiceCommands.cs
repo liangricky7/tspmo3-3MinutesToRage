@@ -4,11 +4,12 @@ using UnityEngine.Windows.Speech;
 public class VoiceCommands : MonoBehaviour
 {
     private KeywordRecognizer keywordRecognizer;
-    private string[] keywords = new string[] { "grapple", "come here", "net ann yahoo please", "hollow purple", "smash" };
+    private string[] keywords = new string[] { "grapple", "come here", "bang", "hollow purple", "smash" };
 
     private GrapplePull grapplePull;
     private ShootBehavior shootBehavior;
     private BatBehavior batBehavior;
+    private HollowPurpleEffect hollowPurpleEffect;
 
     private AudioSource audioSource;
 
@@ -16,13 +17,15 @@ public class VoiceCommands : MonoBehaviour
     public AudioClip grappleSound;
     public AudioClip smashSound;
     public AudioClip shootSound;
+    public AudioClip hollowPurpleSound;
 
     void Start()
     {
-        grapplePull   = FindObjectOfType<GrapplePull>();
-        shootBehavior = FindObjectOfType<ShootBehavior>();
-        batBehavior   = FindObjectOfType<BatBehavior>();
-        audioSource   = GetComponent<AudioSource>();
+        grapplePull        = FindObjectOfType<GrapplePull>();
+        shootBehavior      = FindObjectOfType<ShootBehavior>();
+        batBehavior        = FindObjectOfType<BatBehavior>();
+        hollowPurpleEffect = GetComponent<HollowPurpleEffect>();
+        audioSource        = GetComponent<AudioSource>();
 
         keywordRecognizer = new KeywordRecognizer(keywords, ConfidenceLevel.Low);
         keywordRecognizer.OnPhraseRecognized += OnPhraseRecognized;
@@ -39,10 +42,17 @@ public class VoiceCommands : MonoBehaviour
             PlaySound(grappleSound);
         }
 
-        if (args.text == "hollow purple" || args.text == "net ann yahoo please")
+        if (args.text == "bang")
         {
             shootBehavior.Fire();
             PlaySound(shootSound);
+        }
+
+        if (args.text == "hollow purple")
+        {
+            shootBehavior.Fire();
+            PlaySound(hollowPurpleSound);
+            hollowPurpleEffect.Trigger();
         }
 
         if (args.text == "smash")
@@ -54,7 +64,7 @@ public class VoiceCommands : MonoBehaviour
 
     void PlaySound(AudioClip clip)
     {
-        if (clip != null)
+        if (clip != null && audioSource != null)
             audioSource.PlayOneShot(clip);
     }
 
