@@ -19,7 +19,6 @@ public class ObjectSpawner : MonoBehaviour
 
     void Update()
     {
-
         if (EnergyMeter.Instance.SanityCheck())
         {
             timer += Time.deltaTime;
@@ -28,13 +27,7 @@ public class ObjectSpawner : MonoBehaviour
                 SpawnObject();
                 timer = 0f;
             }
-            else
-            {
-                timer = 0f;
-            }
         }
-
-        
     }
 
     void SpawnObject()
