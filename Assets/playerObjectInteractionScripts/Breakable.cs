@@ -43,7 +43,7 @@ public class Breakable : MonoBehaviour
 
         EventsPlayerInteraction.Instance.TriggerBreakableKill();
         CleanupBreakPoints(breakPoints);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     private List<Transform> GenerateBreakPoints(Vector3 center)
