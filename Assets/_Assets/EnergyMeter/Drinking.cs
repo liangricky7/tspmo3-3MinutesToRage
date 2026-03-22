@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Drinking : MonoBehaviour
 {
+    [Header("Animator")]
+
+    public Animator animator;
+
     public static Drinking Instance { get; private set; }
 
     void Awake()
@@ -22,9 +26,24 @@ public class Drinking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            EnergyMeter.Instance.AddEnergy(25f);
+            StartDrink();
         }
+    }
+
+    public void StartDrink()
+    {
+        animator.SetBool("isDrinking", true);
+    }
+
+    public void Drink()
+    {
+        EnergyMeter.Instance.AddEnergy(25f);
+    }
+
+    public void EndDrink()
+    {
+        animator.SetBool("isDrinking", false);
     }
 }

@@ -2586,8 +2586,8 @@ GameObject:
   - component: {fileID: 2055338818}
   - component: {fileID: 2055338822}
   - component: {fileID: 2055338821}
-  - component: {fileID: 2055338820}
   - component: {fileID: 2055338819}
+  - component: {fileID: 2055338823}
   m_Layer: 0
   m_Name: EnergyMeter
   m_TagString: Untagged
@@ -2623,18 +2623,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSane: 1
---- !u!114 &2055338820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055338817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 604f83a61699f4ed084a824250cddebe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2055338821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2668,6 +2656,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volume: 0
   bias: 1
+--- !u!114 &2055338823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055338817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604f83a61699f4ed084a824250cddebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2909533808324157542}
 --- !u!1 &2083830969
 GameObject:
   m_ObjectHideFlags: 0
@@ -3769,6 +3770,7 @@ GameObject:
   - component: {fileID: 5127951045400299954}
   - component: {fileID: 8897381121065271870}
   - component: {fileID: 2909533808324157542}
+  - component: {fileID: 8897381121065271871}
   m_Layer: 5
   m_Name: WatchHand
   m_TagString: Untagged
@@ -4152,6 +4154,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8897381121065271871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4489214271861247890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0f7a0096a104f8cb3411e38daecdf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8983315540951203540
 RectTransform:
   m_ObjectHideFlags: 0
