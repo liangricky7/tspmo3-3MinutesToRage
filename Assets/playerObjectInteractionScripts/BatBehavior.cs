@@ -18,12 +18,21 @@ public class BatBehavior : MonoBehaviour
     public float forceDirectionX = 1f;
     public float forceDirectionY = -0.5f;
 
+    [Header("Audio")]
+    public AudioClip swingSound;
+    public AudioClip hitSound;
+    private AudioSource audioSource;
+
     private float _cooldownTimer = 0f;
     private bool _swingFromRight = true;
 
     [Header("Animator")]
-
     public Animator animator;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -37,6 +46,7 @@ public class BatBehavior : MonoBehaviour
     void StartAttack()
     {
         animator.SetBool("isAttacking", true);
+        PlaySound(swingSound); // plays on swing
     }
 
     public void Attack()
@@ -53,6 +63,7 @@ public class BatBehavior : MonoBehaviour
                 EnergyMeter.Instance.AddEnergy(energyReward);
                 hitCircle.DestroyEnemy();
                 _cooldownTimer = cooldown;
+                PlaySound(hitSound); // plays on hit
             }
             return;
         }
@@ -62,6 +73,7 @@ public class BatBehavior : MonoBehaviour
         {
             breakable.Break(hit.point);
             _cooldownTimer = cooldown;
+            PlaySound(hitSound);
             return;
         }
 
@@ -77,11 +89,17 @@ public class BatBehavior : MonoBehaviour
         rb.AddForce(swingDir * hitForce, ForceMode.Impulse);
 
         _cooldownTimer = cooldown;
+        PlaySound(hitSound);
+    }
+
+    void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+            audioSource.PlayOneShot(clip);
     }
 
     public void EndAttack()
     {
         animator.SetBool("isAttacking", false);
     }
-
 }
