@@ -6,12 +6,12 @@ using UnityEngine;
 public enum ComboTier
 {
     None,
-    F,
-    D,
-    C,
-    B,
-    A,
-    S,
+    FIRSTBLOOD,
+    DECENT,
+    CAPABLE,
+    BETTER,
+    AWESOME,
+    SUPER,
 }
 
 public class ComboSystem : MonoBehaviour
@@ -71,7 +71,7 @@ public class ComboSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             CurrentComboScore += 30f;
-            if (CurrentComboTier == ComboTier.S) comboTimer = 0f;
+            if (CurrentComboTier == ComboTier.SUPER) comboTimer = 0f;
         }
         if (CurrentComboScore >= ComboScores[(int)CurrentComboTier])
         {
@@ -102,7 +102,7 @@ public class ComboSystem : MonoBehaviour
         // used for turning off and on UI
         EventsComboSystem.Instance.TriggerComboSystem();
 
-        if (CurrentComboTier < ComboTier.S)
+        if (CurrentComboTier < ComboTier.SUPER)
         {
             CurrentComboTier++;
             if (comboTimerCoroutine != null) StopCoroutine(comboTimerCoroutine);
@@ -113,12 +113,12 @@ public class ComboSystem : MonoBehaviour
     void ProcessEnemyKill()
     {
         CurrentComboScore += 100f;
-        if (CurrentComboTier == ComboTier.S) comboTimer = 0f;
+        if (CurrentComboTier == ComboTier.SUPER) comboTimer = 0f;
     }
     
     void ProcessBreakableKill()
     {
         CurrentComboScore += 50f;
-        if (CurrentComboTier == ComboTier.S) comboTimer = 0f;
+        if (CurrentComboTier == ComboTier.SUPER) comboTimer = 0f;
     }
 }
