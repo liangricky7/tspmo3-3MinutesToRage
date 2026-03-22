@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
+using TMPro;
 using UnityEngine;
 
 public class ShootBehavior : MonoBehaviour
@@ -10,28 +12,61 @@ public class ShootBehavior : MonoBehaviour
     [Header("Shot")]
     public float range = 50f;
     public float force = 20f;
-    public float cooldown = 0.2f;
-    public int magSize = 2;
-    public int currentAmmo;
     public LayerMask hitLayers;
-
-    public float _cooldownTimer = 0f;
+    public float lastShotTime = 0f;
+    public float cooldownDuration = 3f;
+    public bool onCooldown = false;
 
     [Header("Animator")]
-
     public Animator animator;
-    
+
+    [Header("CanShoot")]
+    public bool canShoot = false;
+    public TextMeshProUGUI readyText;
+    [SerializeField]
+    public Image cooldownBar;
+    [SerializeField]
+    public Image fillImage;
+
+    void OnDisable()
+    {
+        EventsEnergyMeter.Instance.OnSane -= DisallowShooting;
+        EventsEnergyMeter.Instance.OnInsane -= AllowShooting;
+    }
+
     void Start()
     {
-        currentAmmo = magSize;
+        EventsEnergyMeter.Instance.OnSane += DisallowShooting;
+        EventsEnergyMeter.Instance.OnInsane += AllowShooting;
+    }
+
+    void AllowShooting()
+    {
+        canShoot = true;
+    }
+
+    void DisallowShooting()
+    {
+        canShoot = false;
     }
 
     void Update()
     {
-        if (_cooldownTimer > 0f)
-            _cooldownTimer -= Time.deltaTime;
+        if ((Time.time - lastShotTime) >= cooldownDuration)
+        {
+            onCooldown = false;
+        }
 
-        if (Input.GetMouseButtonDown(1) && _cooldownTimer <= 0f && animator.GetBool("ShootingGun") == false)
+        if (onCooldown)
+        {
+            
+        }
+        else
+        {
+            
+        }
+
+        if (canShoot && !onCooldown && Input.GetMouseButtonDown(1) && animator.GetBool("ShootingGun") == false)
             StartShoot();
     }
 
@@ -42,11 +77,7 @@ public class ShootBehavior : MonoBehaviour
 
     public void Fire()
     {
-        /*currentAmmo--;
-        if (currentAmmo == 0)
-        {
-            _cooldownTimer += 2f;
-        }*/
+        lastShotTime = Time.time;
         RaycastHit hit;
         if (!Physics.Raycast(cam.position, cam.forward, out hit, range, hitLayers))
             return;
@@ -55,7 +86,6 @@ public class ShootBehavior : MonoBehaviour
         if (breakable != null)
         {
             breakable.Break(hit.point);
-            _cooldownTimer = cooldown;
             return;
         }
 
@@ -63,13 +93,17 @@ public class ShootBehavior : MonoBehaviour
         if (rb == null || rb.isKinematic) return;
 
         rb.AddForce(cam.forward * force, ForceMode.Impulse);
-
-        _cooldownTimer = cooldown;
     }
 
     public void EndShoot()
     {
         animator.SetBool("ShootingGun", false);
+        onCooldown = true;
     }
 
+    // void SetFill(float t)
+    // {
+    //     fillImage.fillAmount = t;
+    //     fillImage.color = Color.Lerp(depletedColor readyColor, t);
+    // }
 }
