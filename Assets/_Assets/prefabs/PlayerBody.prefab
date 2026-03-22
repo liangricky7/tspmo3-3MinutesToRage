@@ -94,6 +94,9 @@ GameObject:
   - component: {fileID: 1143187552543914573}
   - component: {fileID: 1143187552543914571}
   - component: {fileID: 1143187552543914572}
+  - component: {fileID: 5147561677007920600}
+  - component: {fileID: 2218568609880476693}
+  - component: {fileID: 5766654496490460272}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -168,6 +171,54 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1143187552543914574}
   m_Enabled: 1
+--- !u!114 &5147561677007920600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143187552543914574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c296b2ba88223645939aea6fa9bfe5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paletteMat: {fileID: 2100000, guid: 8625336b1005974489515422d232cb41, type: 2}
+  hueShiftSpeed: 0.2
+  intensity: 1
+--- !u!114 &2218568609880476693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143187552543914574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab9a39f3389c524cab307e78a73a5b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  insanityStart: 100
+  plateauStart: 175
+  maxEnergy: 250
+  normalFOV: 60
+  maxFOV: 100
+  fovSpeed: 3
+--- !u!114 &5766654496490460272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143187552543914574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89eb5eb769519b54cab8c0c531c94b51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeStrength: 0.05
+  shakeSpeed: 20
+  energyThreshold: 50
 --- !u!1 &1143187552611723112
 GameObject:
   m_ObjectHideFlags: 0
