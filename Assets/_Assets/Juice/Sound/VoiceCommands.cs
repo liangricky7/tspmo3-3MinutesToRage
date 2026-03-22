@@ -44,20 +44,23 @@ public class VoiceCommands : MonoBehaviour
 
         if (args.text == "bang")
         {
-            shootBehavior.Fire(); // plays shoot sound normally
+            if (!shootBehavior.onCooldown && shootBehavior.canShoot)
+                shootBehavior.StartShoot();
             PlaySound(shootSound);
         }
 
         if (args.text == "hollow purple")
         {
-            shootBehavior.Fire(false); // no shoot sound
+            if (!shootBehavior.onCooldown && shootBehavior.canShoot)
+                shootBehavior.StartShoot();
+            shootBehavior.Fire(false);
             PlaySound(hollowPurpleSound);
             hollowPurpleEffect.Trigger();
         }
 
         if (args.text == "smash")
         {
-            batBehavior.Attack();
+            batBehavior.StartAttack();
             PlaySound(smashSound);
         }
     }
