@@ -32,7 +32,7 @@ public class ComboSystem : MonoBehaviour
     public float CurrentComboScore { get; private set; } = 0f;
 
     [SerializeField]
-    public float[] ComboScores = new float[] { 1f, 51f, 100f, 150f, 200f, 300f, 400f };
+    public float[] ComboScores = new float[] { 51f, 100f, 150f, 250f, 350f, 400f, 500f };
     [SerializeField]
     public float[] ComboMult = new float[] { 0, 1, 1.1f, 1.4f, 1.8f, 2f, 3f };
 
@@ -64,20 +64,12 @@ public class ComboSystem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            UpgradeCombo();
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            CurrentComboScore += 30f;
-            if (CurrentComboTier == ComboTier.SUPER) comboTimer = 0f;
-        }
         if (CurrentComboScore >= ComboScores[(int)CurrentComboTier])
         {
+            Debug.Log($"Combo tier up! Previous tier: {CurrentComboTier}, Combo Score: {CurrentComboScore}");
             UpgradeCombo();
         }
-        // Debug.Log($"Current combo tier: {CurrentComboTier}, Combo timer: {comboTimer}");
+        Debug.Log($"Current combo tier: {CurrentComboTier}, Combo Score: {CurrentComboScore}");
     }
 
     private IEnumerator StartTimer()
@@ -108,6 +100,8 @@ public class ComboSystem : MonoBehaviour
             if (comboTimerCoroutine != null) StopCoroutine(comboTimerCoroutine);
             comboTimerCoroutine = StartCoroutine(StartTimer());
         }
+
+        if (CurrentComboTier == ComboTier.SUPER) comboTimer = 0f;
     }
 
     void ProcessEnemyKill()
