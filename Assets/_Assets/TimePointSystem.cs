@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class TimePointSystem : MonoBehaviour
 {
+    [Header("Timer Settings")]
+    public int time = 180; // 3 minutes in seconds
     [SerializeField]
     public TextMeshProUGUI scoreText;
     [SerializeField]
@@ -37,7 +39,7 @@ public class TimePointSystem : MonoBehaviour
     void Start()
     {
         scoreText.text = "0";
-        StartTimer(4);
+        StartTimer(time);
     }
 
     public void StartTimer(int timeLimit)
