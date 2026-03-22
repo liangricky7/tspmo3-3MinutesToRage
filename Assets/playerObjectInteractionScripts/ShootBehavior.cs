@@ -17,6 +17,10 @@ public class ShootBehavior : MonoBehaviour
 
     private float _cooldownTimer = 0f;
 
+    [Header("Animator")]
+
+    public Animator animator;
+    
     void Start()
     {
         currentAmmo = magSize;
@@ -28,10 +32,15 @@ public class ShootBehavior : MonoBehaviour
             _cooldownTimer -= Time.deltaTime;
 
         if (Input.GetMouseButtonDown(1) && _cooldownTimer <= 0f)
-            Fire();
+            StartShoot();
     }
 
-    void Fire()
+    public void StartShoot()
+    {
+        animator.SetBool("ShootingGun", true);
+    }
+
+    public void Fire()
     {
         /*currentAmmo--;
         if (currentAmmo == 0)
@@ -57,4 +66,10 @@ public class ShootBehavior : MonoBehaviour
 
         _cooldownTimer = cooldown;
     }
+
+    public void EndShoot()
+    {
+        animator.SetBool("ShootingGun", false);
+    }
+
 }

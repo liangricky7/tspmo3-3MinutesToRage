@@ -20,16 +20,25 @@ public class BatBehavior : MonoBehaviour
     private float _cooldownTimer = 0f;
     private bool _swingFromRight = true;
 
+    [Header("Animator")]
+
+    public Animator animator;
+
     void Update()
     {
         if (_cooldownTimer > 0f)
             _cooldownTimer -= Time.deltaTime;
 
         if (Input.GetMouseButtonDown(0) && _cooldownTimer <= 0f)
-            Attack();
+            StartAttack();
     }
 
-    void Attack()
+    void StartAttack()
+    {
+        animator.SetBool("isAttacking", true);
+    }
+
+    public void Attack()
     {
         RaycastHit hit;
         if (!Physics.Raycast(cam.position, cam.forward, out hit, hitRange, hitLayers))
@@ -56,4 +65,10 @@ public class BatBehavior : MonoBehaviour
 
         _cooldownTimer = cooldown;
     }
+
+    public void EndAttack()
+    {
+        animator.SetBool("isAttacking", false);
+    }
+
 }
