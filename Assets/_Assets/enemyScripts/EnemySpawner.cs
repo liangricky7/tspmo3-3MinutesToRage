@@ -26,7 +26,13 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Vector2 spawnPos = GetRandomSpawnPosition();
+        Vector3 spawnPos = GetRandomSpawnPosition();
+        GameObject prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+
+        Vector3 directionToPlayer = (player.position - spawnPos).normalized;
+        Quaternion spawnRotation = Quaternion.LookRotation(directionToPlayer);
+
+        Instantiate(prefab, spawnPos, spawnRotation);
     }
 
     Vector3 GetRandomSpawnPosition()
@@ -50,5 +56,16 @@ public class EnemySpawner : MonoBehaviour
     int CountEnemies()
     {
         return GameObject.FindGameObjectsWithTag("EnemyGhost").Length;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (player == null) return;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(player.position, minSpawnRadius);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(player.position, maxSpawnRadius);
     }
 }

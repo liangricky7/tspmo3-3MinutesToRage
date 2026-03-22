@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [Header("Movement")]
+    public float moveSpeed = 5f;
+    public float stoppingDistance = 1.5f;
+
+    [HideInInspector] public bool isGrappled = false;
+
+    private Transform player;
+
     void Start()
     {
-        
+        GameObject playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null)
+            player = playerObj.transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (player == null || isGrappled) return;
+
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (distance > stoppingDistance)
+        {
+            Vector3 direction = (player.position - transform.position).normalized;
+            transform.position += direction * moveSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
     }
 }

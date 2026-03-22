@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 6825155421786782410}
   m_Layer: 0
   m_Name: PlayerBody
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -205,7 +205,6 @@ Transform:
   - {fileID: 1143187552543914573}
   - {fileID: 1143187551962133466}
   - {fileID: 1143187553320710625}
-  - {fileID: 5041596125440616384}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -243,6 +242,9 @@ MonoBehaviour:
   sprintSpeed: 15
   jumpHeight: 2
   gravity: -15
+  slideSpeed: 15
+  slideDuration: 0.8
+  slideHeightReduction: 0.5
   pushForce: 8
   mouseSensitivity: 2
   freeze: 0
@@ -618,35 +620,4 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1143187552611723111}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2314155574606372803
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5041596125440616384}
-  m_Layer: 0
-  m_Name: SchizoSpawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5041596125440616384
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2314155574606372803}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.524722, y: 1.9356494, z: 2.468401}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1143187552611723111}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
