@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShootBehavior : MonoBehaviour
 {
@@ -24,9 +25,13 @@ public class ShootBehavior : MonoBehaviour
     public bool canShoot = false;
     public TextMeshProUGUI readyText;
     [SerializeField]
-    public Image cooldownBar;
+    public UnityEngine.UI.Image cooldownBar;
     [SerializeField]
-    public Image fillImage;
+    public UnityEngine.UI.Image fillImage;
+
+    public Color readyColor   = new Color(1f, 0.63f, 0.15f, 1f);
+    public Color depletedColor = new Color(0.3f, 0.3f, 0.3f, 0.6f);
+
 
     void OnDisable()
     {
@@ -38,6 +43,10 @@ public class ShootBehavior : MonoBehaviour
     {
         EventsEnergyMeter.Instance.OnSane += DisallowShooting;
         EventsEnergyMeter.Instance.OnInsane += AllowShooting;
+        
+        // make sure ui turned off on start
+        cooldownBar.gameObject.SetActive(false);
+        readyText.gameObject.SetActive(false);
     }
 
     void AllowShooting()
@@ -48,10 +57,14 @@ public class ShootBehavior : MonoBehaviour
     void DisallowShooting()
     {
         canShoot = false;
+        cooldownBar.gameObject.SetActive(false);
+        readyText.gameObject.SetActive(false);
     }
 
     void Update()
     {
+        if (!canShoot) return;
+        
         if ((Time.time - lastShotTime) >= cooldownDuration)
         {
             onCooldown = false;
@@ -59,14 +72,18 @@ public class ShootBehavior : MonoBehaviour
 
         if (onCooldown)
         {
-            
+            cooldownBar.gameObject.SetActive(true);
+            readyText.gameObject.SetActive(false);
+
+            SetFill((Time.time - lastShotTime) / cooldownDuration);
         }
         else
         {
-            
+            cooldownBar.gameObject.SetActive(false);
+            readyText.gameObject.SetActive(true);
         }
 
-        if (canShoot && !onCooldown && Input.GetMouseButtonDown(1) && animator.GetBool("ShootingGun") == false)
+        if (!onCooldown && Input.GetMouseButtonDown(1) && animator.GetBool("ShootingGun") == false)
             StartShoot();
     }
 
@@ -101,9 +118,9 @@ public class ShootBehavior : MonoBehaviour
         onCooldown = true;
     }
 
-    // void SetFill(float t)
-    // {
-    //     fillImage.fillAmount = t;
-    //     fillImage.color = Color.Lerp(depletedColor readyColor, t);
-    // }
+    void SetFill(float t)
+    {
+        fillImage.fillAmount = t;
+        fillImage.color = Color.Lerp(depletedColor, readyColor, t);
+    }
 }

@@ -4384,6 +4384,10 @@ MonoBehaviour:
   animator: {fileID: 8516881565899800037}
   canShoot: 0
   readyText: {fileID: 571507396}
+  cooldownBar: {fileID: 671420604}
+  fillImage: {fileID: 101480878}
+  readyColor: {r: 1, g: 0.63, b: 0.15, a: 1}
+  depletedColor: {r: 0.3, g: 0.3, b: 0.3, a: 0.6}
 --- !u!222 &6884336312512725293
 CanvasRenderer:
   m_ObjectHideFlags: 0
