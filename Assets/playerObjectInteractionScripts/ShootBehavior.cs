@@ -31,7 +31,7 @@ public class ShootBehavior : MonoBehaviour
         if (_cooldownTimer > 0f)
             _cooldownTimer -= Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(1) && _cooldownTimer <= 0f)
+        if (Input.GetMouseButtonDown(1) && _cooldownTimer <= 0f && animator.GetBool("ShootingGun") == false)
             StartShoot();
     }
 

@@ -29,7 +29,7 @@ public class BatBehavior : MonoBehaviour
         if (_cooldownTimer > 0f)
             _cooldownTimer -= Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0) && _cooldownTimer <= 0f)
+        if (Input.GetMouseButtonDown(0) && _cooldownTimer <= 0f && animator.GetBool("isAttacking") == false)
             StartAttack();
     }
 
