@@ -32,7 +32,10 @@ public class ComboSystem : MonoBehaviour
     public float CurrentComboScore { get; private set; } = 0f;
 
     [SerializeField]
-    public float[] ComboScores = new float[] { 1f, 50f, 100f, 150f, 200f, 300f, 400f };
+    public float[] ComboScores = new float[] { 1f, 51f, 100f, 150f, 200f, 300f, 400f };
+    [SerializeField]
+    public float[] ComboMult = new float[] { 0, 1, 1.1f, 1.4f, 1.8f, 2f, 3f };
+
 
     private void OnDisable()
     {
@@ -58,7 +61,6 @@ public class ComboSystem : MonoBehaviour
         EventsPlayerInteraction.Instance.EnemyKill += ProcessEnemyKill;
         EventsPlayerInteraction.Instance.BreakableKill += ProcessBreakableKill;
     }
-
 
     void Update()
     {
@@ -86,6 +88,9 @@ public class ComboSystem : MonoBehaviour
             comboTimer += Time.deltaTime;
             yield return null;
         }
+
+        TimePointSystem.Instance.AddScore(CurrentComboScore * ComboMult[(int)CurrentComboTier]);
+
         CurrentComboTier = ComboTier.None;
         comboTimer = 0f;
         CurrentComboScore = 0;
