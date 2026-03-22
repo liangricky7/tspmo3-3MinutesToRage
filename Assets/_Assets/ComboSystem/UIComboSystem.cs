@@ -73,11 +73,11 @@ public class UIComboSystem : MonoBehaviour
 
     void ProcessEnemyKill()
     {
-        UIComboSystemLog.Instance.AddEntry("Enemy killed! +" + ComboSystem.Instance.ComboScores[(int)ComboSystem.Instance.CurrentComboTier] + " points");
+        UIComboSystemLog.Instance.AddEntry("Enemy Kill +100");
     }
     
     void ProcessBreakableKill()
     {
-        UIComboSystemLog.Instance.AddEntry("Breakable destroyed! +" + ComboSystem.Instance.ComboScores[(int)ComboSystem.Instance.CurrentComboTier] + " points");
+        UIComboSystemLog.Instance.AddEntry("Object Broken +50");
     }
 }
