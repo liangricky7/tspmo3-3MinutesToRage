@@ -3,7 +3,7 @@ using UnityEngine;
 public class PaletteInsanityHook : MonoBehaviour
 {
     private PaletteShiftController palette;
-    private Camera cam;
+    private CameraFOV cameraFOV;
 
     [Header("Thresholds")]
     public float insanityStart = 100f;
@@ -11,14 +11,12 @@ public class PaletteInsanityHook : MonoBehaviour
     public float maxEnergy     = 250f;
 
     [Header("FOV Settings")]
-    public float normalFOV = 60f;
-    public float maxFOV    = 100f;
-    public float fovSpeed  = 3f;
+    public float insanityFOVBoost = 30f;
 
     void Start()
     {
-        palette = GetComponent<PaletteShiftController>();
-        cam     = Camera.main;
+        palette   = GetComponent<PaletteShiftController>();
+        cameraFOV = Camera.main.GetComponent<CameraFOV>();
 
         if (EventsEnergyMeter.Instance != null)
         {
@@ -40,11 +38,11 @@ public class PaletteInsanityHook : MonoBehaviour
     {
         float energy = EnergyMeter.Instance.energy;
 
-        // palette
         if (energy < insanityStart)
         {
             palette.intensity     = 0f;
             palette.hueShiftSpeed = 0f;
+            cameraFOV.ResetFOV();
         }
         else if (energy < plateauStart)
         {
@@ -52,27 +50,15 @@ public class PaletteInsanityHook : MonoBehaviour
             palette.intensity     = Mathf.Lerp(0f,    1f,   t);
             palette.hueShiftSpeed = Mathf.Lerp(0.05f, 0.6f, t);
             palette.SetModeImmediate(3);
+            cameraFOV.SetFOV(cameraFOV.defaultFOV + insanityFOVBoost * t);
         }
         else
         {
             palette.intensity     = 1f;
             palette.hueShiftSpeed = 0.6f;
             palette.SetModeImmediate(3);
+            cameraFOV.SetFOV(cameraFOV.defaultFOV + insanityFOVBoost);
         }
-
-        // FOV
-        float targetFOV;
-        if (energy >= insanityStart)
-        {
-            float t = Mathf.InverseLerp(insanityStart, maxEnergy, energy);
-            targetFOV = Mathf.Lerp(normalFOV, maxFOV, t);
-        }
-        else
-        {
-            targetFOV = normalFOV;
-        }
-
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, fovSpeed * Time.deltaTime);
     }
 
     void HandleInsanity()

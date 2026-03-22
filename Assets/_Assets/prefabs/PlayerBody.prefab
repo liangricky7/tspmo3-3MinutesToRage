@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 5147561677007920600}
   - component: {fileID: 2218568609880476693}
   - component: {fileID: 5766654496490460272}
+  - component: {fileID: 1172728196216409766}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -305,9 +306,7 @@ MonoBehaviour:
   insanityStart: 100
   plateauStart: 175
   maxEnergy: 250
-  normalFOV: 60
-  maxFOV: 100
-  fovSpeed: 3
+  insanityFOVBoost: 30
 --- !u!114 &5766654496490460272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,6 +322,22 @@ MonoBehaviour:
   shakeStrength: 0.05
   shakeSpeed: 20
   energyThreshold: 50
+--- !u!114 &1172728196216409766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143187552543914574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43121bc2b2764a64eab25fd05952f5ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultFOV: 95
+  sprintFOV: 140
+  slideFOV: 170
+  smoothSpeed: 8
 --- !u!1 &1143187552611723112
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +419,7 @@ MonoBehaviour:
   pushForce: 8
   mouseSensitivity: 2
   freeze: 0
+  _isSliding: 0
 --- !u!114 &1143187552611723103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +563,7 @@ MonoBehaviour:
     m_Bits: 64
   forceDirectionX: 1
   forceDirectionY: -0.5
+  animator: {fileID: 0}
 --- !u!114 &6825155421786782410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,6 +585,8 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 64
+  _cooldownTimer: 0
+  animator: {fileID: 0}
 --- !u!1 &1143187552670382648
 GameObject:
   m_ObjectHideFlags: 0
