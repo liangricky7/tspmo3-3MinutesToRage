@@ -5,6 +5,9 @@ public class EventsPlayerInteraction : MonoBehaviour
 {
     public static EventsPlayerInteraction Instance { get; private set; }
 
+    public event Action MeleeAttack;
+    public event Action RangedAttack;
+
     public event Action EnemyKill;
     public event Action BreakableKill;
 
@@ -31,6 +34,16 @@ public class EventsPlayerInteraction : MonoBehaviour
         {
             TriggerBreakableKill();
         }
+    }
+
+    public void TriggerMeleeAnim()
+    {
+        MeleeAttack?.Invoke();
+    }
+
+    public void TriggerShootAnim()
+    {
+        RangedAttack?.Invoke();
     }
 
     public void TriggerEnemyKill()
