@@ -19,12 +19,22 @@ public class ObjectSpawner : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= spawnInterval && CountObjects() < maxObjects)
+
+        if (EnergyMeter.Instance.SanityCheck())
         {
-            SpawnObject();
-            timer = 0f;
+            timer += Time.deltaTime;
+            if (timer >= spawnInterval && CountObjects() < maxObjects)
+            {
+                SpawnObject();
+                timer = 0f;
+            }
+            else
+            {
+                timer = 0f;
+            }
         }
+
+        
     }
 
     void SpawnObject()

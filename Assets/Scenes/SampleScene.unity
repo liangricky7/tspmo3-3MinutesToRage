@@ -531,6 +531,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd198c6ef3ba4f9e8be40a3f4a191d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &605381194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605381195}
+  - component: {fileID: 605381196}
+  m_Layer: 0
+  m_Name: ObjectSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &605381195
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605381194}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2131926187}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &605381196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605381194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c173b22b37af704cb439173f324475c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPrefabs: []
+  player: {fileID: 1143187553125647113}
+  minSpawnRadius: 5
+  maxObjects: 15
+  spawnInterval: 1.5
+  boxCenter: {x: 13, y: 4, z: 17}
+  boxSize: {x: 12, y: 7, z: 17}
 --- !u!1 &690493341
 GameObject:
   m_ObjectHideFlags: 0
@@ -2966,6 +3017,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1679798154}
+  - {fileID: 605381195}
   m_Father: {fileID: 860513851}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3794,6 +3846,7 @@ MonoBehaviour:
   hitRange: 3
   hitForce: 30
   cooldown: 0.4
+  energyReward: 30
   hitLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -4011,6 +4064,7 @@ MonoBehaviour:
   range: 50
   force: 20
   cooldown: 0.2
+  energyReward: 30
   magSize: 2
   currentAmmo: 0
   hitLayers:
