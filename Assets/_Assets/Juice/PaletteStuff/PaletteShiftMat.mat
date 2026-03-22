@@ -67,8 +67,8 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HueShift: 0.57237804
-    - _Intensity: 0.16597189
+    - _HueShift: 0.595662
+    - _Intensity: 0
     - _MagentaSpike: 0
     - _Metallic: 0
     - _Mode: 3
