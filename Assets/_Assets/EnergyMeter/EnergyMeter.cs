@@ -62,7 +62,7 @@ public class EnergyMeter : MonoBehaviour
         {
             energy = energy - decayRate >= 0 ? energy - decayRate : 0;
         }
-        
+
         if (energy < 100f)
         {
             EventsEnergyMeter.Instance.TriggerSanity();
@@ -70,6 +70,14 @@ public class EnergyMeter : MonoBehaviour
         else
         {
             EventsEnergyMeter.Instance.TriggerInsanity();
+        }
+    }
+    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            AddEnergy(50f);
         }
     }
 
