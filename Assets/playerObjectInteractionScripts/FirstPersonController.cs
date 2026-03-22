@@ -32,7 +32,7 @@ public class FirstPersonController : MonoBehaviour
     private float _grappleArcTime = 0f;
     private float _grappleArcDuration = 0f;
 
-    private bool _isSliding = false;
+    public bool _isSliding = false;
     private float _slideTimer = 0f;
     private Vector3 _slideDirection;
     private float _defaultHeight;
