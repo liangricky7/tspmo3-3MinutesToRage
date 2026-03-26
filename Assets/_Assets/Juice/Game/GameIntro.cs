@@ -36,9 +36,6 @@ public class GameIntro : MonoBehaviour
         audioSource.PlayOneShot(clipReady);
         yield return new WaitForSeconds(1f);
 
-        // music starts after countdown finishes
-        audioSource.clip = music;
-        audioSource.loop = true;
-        audioSource.Play();
+        FindObjectOfType<MusicManager>().StartMusic();
     }
 }

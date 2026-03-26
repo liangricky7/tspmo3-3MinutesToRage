@@ -4,7 +4,7 @@ using UnityEngine.Windows.Speech;
 public class VoiceCommands : MonoBehaviour
 {
     private KeywordRecognizer keywordRecognizer;
-    private string[] keywords = new string[] { "grapple", "come here", "bang", "hollow purple", "smash" };
+    private string[] keywords = new string[] { "grapple", "come here", "jarvis fry this guy", "hollow purple", "smash" };
 
     private GrapplePull grapplePull;
     private ShootBehavior shootBehavior;
@@ -42,7 +42,7 @@ public class VoiceCommands : MonoBehaviour
             PlaySound(grappleSound);
         }
 
-        if (args.text == "bang")
+        if (args.text == "jarvis fry this guy")
         {
             if (!shootBehavior.onCooldown && shootBehavior.canShoot)
                 shootBehavior.StartShoot();

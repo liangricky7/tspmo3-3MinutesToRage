@@ -904,6 +904,7 @@ GameObject:
   - component: {fileID: 695619119}
   - component: {fileID: 695619121}
   - component: {fileID: 695619120}
+  - component: {fileID: 695619122}
   m_Layer: 0
   m_Name: GameIntro
   m_TagString: Untagged
@@ -937,7 +938,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1029,7 +1030,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695619118}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2f8a8c7c442b5a4693c658625cfb147, type: 3}
   m_Name: 
@@ -1038,7 +1039,22 @@ MonoBehaviour:
   clip2: {fileID: 8300000, guid: 213ccb4247789d141a14ad10c088cbbb, type: 3}
   clip1: {fileID: 8300000, guid: 7d915dd865e03cf4294fdf5101464967, type: 3}
   clipReady: {fileID: 8300000, guid: a8480c084b5d6394fa014dabf65c5df3, type: 3}
-  music: {fileID: 8300000, guid: 62803a1e7650c684fb386ad63781e235, type: 3}
+  music: {fileID: 0}
+--- !u!114 &695619122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695619118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adcf60bf091b26042a5f6aac1856329b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  calmTrack: {fileID: 8300000, guid: f6371038145b89d438113da39b073a1c, type: 3}
+  intenseTrack: {fileID: 8300000, guid: 62803a1e7650c684fb386ad63781e235, type: 3}
+  switchThreshold: 100
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
