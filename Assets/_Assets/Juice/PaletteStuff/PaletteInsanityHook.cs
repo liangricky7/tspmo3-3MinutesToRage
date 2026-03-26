@@ -18,19 +18,19 @@ public class PaletteInsanityHook : MonoBehaviour
         palette   = GetComponent<PaletteShiftController>();
         cameraFOV = Camera.main.GetComponent<CameraFOV>();
 
-        if (EventsEnergyMeter.Instance != null)
+        if (EnergyMeter.Instance != null)
         {
-            EventsEnergyMeter.Instance.OnInsane += HandleInsanity;
-            EventsEnergyMeter.Instance.OnSane   += HandleSanity;
+            EnergyMeter.Instance.OnInsane += HandleInsanity;
+            EnergyMeter.Instance.OnSane   += HandleSanity;
         }
     }
 
     void OnDestroy()
     {
-        if (EventsEnergyMeter.Instance != null)
+        if (EnergyMeter.Instance != null)
         {
-            EventsEnergyMeter.Instance.OnInsane -= HandleInsanity;
-            EventsEnergyMeter.Instance.OnSane   -= HandleSanity;
+            EnergyMeter.Instance.OnInsane -= HandleInsanity;
+            EnergyMeter.Instance.OnSane   -= HandleSanity;
         }
     }
 

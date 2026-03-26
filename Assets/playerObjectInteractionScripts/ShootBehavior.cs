@@ -41,14 +41,14 @@ public class ShootBehavior : MonoBehaviour
 
     void OnDisable()
     {
-        EventsEnergyMeter.Instance.OnSane   -= DisallowShooting;
-        EventsEnergyMeter.Instance.OnInsane -= AllowShooting;
+        EnergyMeter.Instance.OnSane   -= DisallowShooting;
+        EnergyMeter.Instance.OnInsane -= AllowShooting;
     }
 
     void Start()
     {
-        EventsEnergyMeter.Instance.OnSane   += DisallowShooting;
-        EventsEnergyMeter.Instance.OnInsane += AllowShooting;
+        EnergyMeter.Instance.OnSane   += DisallowShooting;
+        EnergyMeter.Instance.OnInsane += AllowShooting;
 
         audioSource = GetComponent<AudioSource>();
 

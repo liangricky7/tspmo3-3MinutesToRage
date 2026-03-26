@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (EnergyMeter.Instance.SanityCheck())
+        if (EnergyMeter.Instance.isSane)
         {
             timer += Time.deltaTime;
             if (timer >= spawnInterval && CountEnemies() < maxEnemies)

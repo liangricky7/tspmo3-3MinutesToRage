@@ -19,10 +19,10 @@ public class ObjectSpawner : MonoBehaviour
 
     void Update()
     {
-        if (EnergyMeter.Instance.SanityCheck())
+        if (EnergyMeter.Instance.isSane)
         {
             timer += Time.deltaTime;
-            if (timer >= spawnInterval && CountObjects() < maxObjects)
+            if (timer >= spawnInterval)
             {
                 SpawnObject();
                 timer = 0f;
@@ -32,6 +32,8 @@ public class ObjectSpawner : MonoBehaviour
 
     void SpawnObject()
     {
+        if (CountObjects() >= maxObjects) return;
+
         Vector3 spawnPos;
         if (!TryGetSpawnPosition(out spawnPos)) return;
 

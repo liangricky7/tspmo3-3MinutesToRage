@@ -5,21 +5,20 @@ using UnityEngine;
 
 public class EnergyMeter : MonoBehaviour
 {
-    [Range(0f, 250f)] //this does nothing for capping the number; thats done in the addenergy func
-    public float energy = 0f; // 0 to 250
-    [SerializeField]
-    private float decayRate = 0.55f; // how much energy decays per fixed update
-    [SerializeField]
-    private float energyHoldTime = 2f; // how long energy holds before decaying
-    [SerializeField]
-    private float maxEnergyHoldTime = 3.5f; // how long max energy holds before decaying
-    [SerializeField]
-    private float energyHoldTimer = 0f; // timer for energy hold
-    [SerializeField]
-    private bool timerTrigger = false; // flag to check if energy is added
-    [SerializeField]
-    private bool maxEnergyHoldTrigger = false; // flag to check if max energy is reached
+    [Range(0f, 250f)] public float energy = 0f; // 0 to 250
+    [SerializeField] float decayRate = 0.55f; // how much energy decays per fixed update
+    [SerializeField] float energyHoldTime = 2f; // how long energy holds before decaying
+    [SerializeField] float maxEnergyHoldTime = 3.5f; // how long max energy holds before decaying
+    [SerializeField] float energyHoldTimer = 0f; // timer for energy hold
+    [SerializeField] bool timerTrigger = false; // flag to check if energy is added
+    [SerializeField] bool maxEnergyHoldTrigger = false; // flag to check if max energy is reached
+
     public static EnergyMeter Instance { get; private set; }
+
+    public bool isSane = true;
+    public event Action OnInsane;
+    public event Action OnSane;
+
 
     void Awake()
     {
@@ -31,7 +30,7 @@ public class EnergyMeter : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-        }   
+        }
     }
 
     void Start()
@@ -65,25 +64,20 @@ public class EnergyMeter : MonoBehaviour
 
         if (energy < 100f)
         {
-            EventsEnergyMeter.Instance.TriggerSanity();
+            TriggerSanity();
         }
         else
         {
-            EventsEnergyMeter.Instance.TriggerInsanity();
-        }
-    }
-    
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            AddEnergy(50f);
+            TriggerInsanity();
         }
     }
 
-    public bool SanityCheck()
+    void Update()
     {
-        return energy > 100f;
+        if (Input.GetKeyDown(KeyCode.O)) // debug tool
+        {
+            AddEnergy(50f);
+        }
     }
 
     public void AddEnergy(float amount)
@@ -105,7 +99,35 @@ public class EnergyMeter : MonoBehaviour
         {
             energy += amount;
         }
-        timerTrigger = true; 
+        timerTrigger = true;
         energyHoldTimer = 0f;
+    }
+    
+    public void TriggerSanity()
+    {
+        if (isSane)
+        {
+            return; // prevent triggering sanity if already sane
+        }
+        else
+        {
+            isSane = true;
+        }
+        OnSane?.Invoke();
+        Debug.Log("Sanity triggered");
+    }
+
+    public void TriggerInsanity()
+    {
+        if (!isSane)
+        {
+            return; // prevent triggering insanity if already insane
+        } 
+        else
+        {
+            isSane = false;
+        }
+        OnInsane?.Invoke();
+        Debug.Log("Insanity triggered");
     }
 }
