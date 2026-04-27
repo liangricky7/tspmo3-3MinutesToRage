@@ -756,7 +756,6 @@ MonoBehaviour:
   minSpawnRadius: 2
   maxObjects: 15
   spawnInterval: 1.5
-  boxCenter: {x: 13, y: 4, z: 17}
   boxSize: {x: 12, y: 7, z: 17}
 --- !u!1 &690493341
 GameObject:
@@ -1055,6 +1054,7 @@ MonoBehaviour:
   calmTrack: {fileID: 8300000, guid: 0d728b5cfded1a443b5fe0729171921f, type: 3}
   intenseTrack: {fileID: 8300000, guid: 8f098c9d0388d4145a973da58da27280, type: 3}
   switchThreshold: 100
+  intenseTrackStartTime: 4
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,6 +1247,7 @@ GameObject:
   - component: {fileID: 907859169}
   - component: {fileID: 907859168}
   - component: {fileID: 907859170}
+  - component: {fileID: 907859171}
   m_Layer: 0
   m_Name: VoiceCommands
   m_TagString: Untagged
@@ -1397,6 +1398,22 @@ MonoBehaviour:
   fadeInTime: 0.2
   holdTime: 0.6
   fadeOutTime: 0.2
+--- !u!114 &907859171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907859166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f7370a55d233364e8a4a8331b3924a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activationKey: 104
+  minimumEnergy: 200
+  cooldown: 15
+  visualEffect: {fileID: 907859170}
 --- !u!4 &909807160 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1149206716778650707, guid: 30174b68091151545903927474ec1852, type: 3}
@@ -2790,6 +2807,7 @@ MonoBehaviour:
   energyHoldTimer: 0
   timerTrigger: 0
   maxEnergyHoldTrigger: 0
+  demoRampDuration: 6
 --- !u!114 &2055338822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3546,6 +3564,7 @@ GameObject:
   - component: {fileID: 2218568608364111995}
   - component: {fileID: 5766654497386082334}
   - component: {fileID: 5766654497386082335}
+  - component: {fileID: 5766654497386082336}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -4048,6 +4067,22 @@ MonoBehaviour:
   sprintFOV: 110
   slideFOV: 120
   smoothSpeed: 8
+--- !u!114 &5766654497386082336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143187553191796256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2549903382fec4c9f8b401ac3611f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glitchMaterial: {fileID: 2100000, guid: 3d71ac8d72ad68041b9f2d3939716bc7, type: 2}
+  peakStart: 200
+  maxEnergy: 250
+  speed: 1
 --- !u!223 &6728980755372711005
 Canvas:
   m_ObjectHideFlags: 0
