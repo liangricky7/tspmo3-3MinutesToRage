@@ -73,12 +73,35 @@ public class EnergyMeter : MonoBehaviour
         }
     }
     
+    [SerializeField] private float demoRampDuration = 6f;
+    private Coroutine demoRampCoroutine;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
-            AddEnergy(50f);
+            if (demoRampCoroutine != null) StopCoroutine(demoRampCoroutine);
+            demoRampCoroutine = StartCoroutine(DemoRamp());
         }
+    }
+
+    IEnumerator DemoRamp()
+    {
+        float startEnergy = energy;
+        float elapsed = 0f;
+        while (elapsed < demoRampDuration)
+        {
+            elapsed += Time.deltaTime;
+            energy = Mathf.Lerp(startEnergy, 250f, elapsed / demoRampDuration);
+            timerTrigger = true;
+            energyHoldTimer = 0f;
+            yield return null;
+        }
+        energy = 250f;
+        maxEnergyHoldTrigger = true;
+        timerTrigger = true;
+        energyHoldTimer = 0f;
+        demoRampCoroutine = null;
     }
 
     public bool SanityCheck()

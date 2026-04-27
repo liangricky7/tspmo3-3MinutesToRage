@@ -34,7 +34,7 @@ Shader "Custom/GlitchEffect"
             // XorDev hash noise
             float fsnoise(float2 p)
             {
-                return fract(sin(dot(p, float2(127.1, 311.7))) * 43758.5453);
+                return frac(sin(dot(p, float2(127.1, 311.7))) * 43758.5453);
             }
 
             #define N(x) fsnoise(ceil(x))
@@ -68,7 +68,7 @@ Shader "Custom/GlitchEffect"
                        * float4(1. + iter, 2. - abs(iter + iter), 1. - iter, 1.) / 1e2;
                 }
 
-                return lerp(scene, saturate(o), _Intensity);
+                return lerp(scene, saturate(o), _Intensity * 0.18);
             }
             ENDCG
         }

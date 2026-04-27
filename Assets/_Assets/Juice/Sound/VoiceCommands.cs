@@ -9,7 +9,7 @@ public class VoiceCommands : MonoBehaviour
     private GrapplePull grapplePull;
     private ShootBehavior shootBehavior;
     private BatBehavior batBehavior;
-    private HollowPurpleEffect hollowPurpleEffect;
+    private HollowPurpleAttack hollowPurpleAttack;
 
     private AudioSource audioSource;
 
@@ -24,7 +24,7 @@ public class VoiceCommands : MonoBehaviour
         grapplePull        = FindObjectOfType<GrapplePull>();
         shootBehavior      = FindObjectOfType<ShootBehavior>();
         batBehavior        = FindObjectOfType<BatBehavior>();
-        hollowPurpleEffect = GetComponent<HollowPurpleEffect>();
+        hollowPurpleAttack = FindObjectOfType<HollowPurpleAttack>();
         audioSource        = GetComponent<AudioSource>();
 
         keywordRecognizer = new KeywordRecognizer(keywords, ConfidenceLevel.Low);
@@ -51,11 +51,8 @@ public class VoiceCommands : MonoBehaviour
 
         if (args.text == "hollow purple")
         {
-            if (!shootBehavior.onCooldown && shootBehavior.canShoot)
-                shootBehavior.StartShoot();
-            shootBehavior.Fire(false);
             PlaySound(hollowPurpleSound);
-            hollowPurpleEffect.Trigger();
+            hollowPurpleAttack?.FireFromVoice();
         }
 
         if (args.text == "smash")

@@ -9,6 +9,9 @@ public class MusicManager : MonoBehaviour
     [Header("Threshold")]
     public float switchThreshold = 100f;
 
+    [Header("Intense Track")]
+    public float intenseTrackStartTime = 0f;
+
     private AudioSource audioSource;
     private bool isIntense = false;
     private float calmTrackTime = 0f;
@@ -48,5 +51,7 @@ public class MusicManager : MonoBehaviour
         audioSource.Play();
         if (clip == calmTrack)
             audioSource.time = calmTrackTime;
+        else if (clip == intenseTrack)
+            audioSource.time = intenseTrackStartTime;
     }
 }
