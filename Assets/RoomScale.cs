@@ -41,8 +41,6 @@ public class RoomScale : MonoBehaviour
 
         if (objectSpawner != null)
         {
-            Vector3 localCenter = environment.InverseTransformPoint(objectSpawner.boxCenter);
-            objectSpawner.boxCenter = environment.TransformPoint(localCenter * scaleRatio);
             objectSpawner.boxSize *= scaleRatio;
         }
 

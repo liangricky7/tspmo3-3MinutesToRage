@@ -12,10 +12,10 @@ public class ObjectSpawner : MonoBehaviour
     public float spawnInterval = 3f;
 
     [Header("Box Bounds")]
-    public Vector3 boxCenter = Vector3.zero;
     public Vector3 boxSize = new Vector3(50f, 50f, 50f);
 
     private float timer;
+    private List<GameObject> spawnedObjects = new List<GameObject>();
 
     void Update()
     {
@@ -38,13 +38,13 @@ public class ObjectSpawner : MonoBehaviour
         GameObject prefab = objectPrefabs[Random.Range(0, objectPrefabs.Length)];
         Vector3 directionToPlayer = (player.position - spawnPos).normalized;
         Quaternion spawnRotation = Quaternion.LookRotation(directionToPlayer);
-        Instantiate(prefab, spawnPos, spawnRotation);
+        spawnedObjects.Add(Instantiate(prefab, spawnPos, spawnRotation));
     }
 
     bool TryGetSpawnPosition(out Vector3 result)
     {
         int maxAttempts = 30;
-        Bounds bounds = new Bounds(boxCenter, boxSize);
+        Bounds bounds = new Bounds(player.position, boxSize);
 
         for (int i = 0; i < maxAttempts; i++)
         {
@@ -69,20 +69,16 @@ public class ObjectSpawner : MonoBehaviour
 
     int CountObjects()
     {
-        return GameObject.FindGameObjectsWithTag("Breakable").Length;
+        spawnedObjects.RemoveAll(e => e == null);
+        return spawnedObjects.Count;
     }
 
     void OnDrawGizmosSelected()
     {
-        // Draw static box
+        if (player == null) return;
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(boxCenter, boxSize);
-
-        // Draw inner exclusion sphere around player
-        if (player != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(player.position, minSpawnRadius);
-        }
+        Gizmos.DrawWireCube(player.position, boxSize);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(player.position, minSpawnRadius);
     }
 }

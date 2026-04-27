@@ -11,6 +11,7 @@ public class MusicManager : MonoBehaviour
 
     private AudioSource audioSource;
     private bool isIntense = false;
+    private float calmTrackTime = 0f;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -41,7 +42,11 @@ public class MusicManager : MonoBehaviour
     void SwitchTo(AudioClip clip)
     {
         if (audioSource.clip == clip) return;
+        if (audioSource.clip == calmTrack)
+            calmTrackTime = audioSource.time;
         audioSource.clip = clip;
         audioSource.Play();
+        if (clip == calmTrack)
+            audioSource.time = calmTrackTime;
     }
 }

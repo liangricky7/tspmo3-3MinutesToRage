@@ -1052,8 +1052,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adcf60bf091b26042a5f6aac1856329b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  calmTrack: {fileID: 8300000, guid: f6371038145b89d438113da39b073a1c, type: 3}
-  intenseTrack: {fileID: 8300000, guid: 62803a1e7650c684fb386ad63781e235, type: 3}
+  calmTrack: {fileID: 8300000, guid: 0d728b5cfded1a443b5fe0729171921f, type: 3}
+  intenseTrack: {fileID: 8300000, guid: 8f098c9d0388d4145a973da58da27280, type: 3}
   switchThreshold: 100
 --- !u!1 &705507993
 GameObject:
