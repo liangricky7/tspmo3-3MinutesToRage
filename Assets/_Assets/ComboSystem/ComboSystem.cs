@@ -108,11 +108,13 @@ public class ComboSystem : MonoBehaviour
     {
         CurrentComboScore += 100f;
         if (CurrentComboTier == ComboTier.SUPER) comboTimer = 0f;
+        TimePointSystem.Instance.AddTrueScore(100f); //temp
     }
     
     void ProcessBreakableKill()
     {
         CurrentComboScore += 50f;
         if (CurrentComboTier == ComboTier.SUPER) comboTimer = 0f;
+        TimePointSystem.Instance.AddTrueScore(50f); //temp
     }
 }

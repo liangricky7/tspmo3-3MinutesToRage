@@ -14,9 +14,11 @@ public class TimePointSystem : MonoBehaviour
     public TextMeshProUGUI timerText;
 
     [SerializeField]
-    private Canvas gameOverCanvas;
+    private LeaderboardManager leaderboardManager;
 
-    public float Score { get; private set; }
+    public string playerId = "Ricky"; // temp, replace with actual player ID system
+    public int TrueScore { get; private set; }
+    public int Score { get; private set; }
     public bool GameActive { get; private set; }
 
     public static TimePointSystem Instance { get; private set; }
@@ -67,12 +69,16 @@ public class TimePointSystem : MonoBehaviour
         }
 
         GameActive = false;
-        gameOverCanvas.gameObject.SetActive(true);
-        gameOverCanvas.GetComponentInChildren<TextMeshProUGUI>().text = $"Game Over!\nFinal Score: {Score}";
+        leaderboardManager.SubmitScore(playerId, Score);
+        leaderboardManager.ShowLeaderboard(playerId, Score);
+    }
+    public void AddTrueScore(float addition)
+    {
+        TrueScore += (int) addition;
     }
     public void AddScore(float addition)
     {
-        Score += addition;
+        Score += (int) addition;
         scoreText.text = Score.ToString();
     }
 }
