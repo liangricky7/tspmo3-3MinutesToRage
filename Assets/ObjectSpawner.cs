@@ -19,7 +19,7 @@ public class ObjectSpawner : MonoBehaviour
 
     void Update()
     {
-        if (EnergyMeter.Instance.isSane)
+        if (!EnergyMeter.Instance.isSane)
         {
             timer += Time.deltaTime;
             if (timer >= spawnInterval)
